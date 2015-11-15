@@ -33,7 +33,8 @@ object Generate extends App {
     `abstract` = "Blog about Scala programming",
     language = "en-GB",
     url = "http://nieradzik.me/",
-    avatar = Some("images/avatar.png"))
+    avatar = Some("images/avatar.png"),
+    editSourceURL = Some("https://github.com/tindzk/blog/edit/master/"))
 
   def navigation(meta: Meta, index: Boolean): web.tree.Node = {
     val navigation = htmlT("templates/navigation.html")
@@ -45,7 +46,10 @@ object Generate extends App {
     val tweet = s"${document.Blog.postUrl(meta, post)} - ${post.title} by @$TwitterHandle"
     val href = TwitterUrl + tweet
     val template = htmlT("templates/share.html")
-    template.updateChild("twitter", _.setAttribute("href", href))
+    template
+      .updateChild("edit", _.setAttribute("href",
+        meta.editSourceURL.get + post.sourcePath.get)).asInstanceOf[web.tree.Tag]
+      .updateChild("twitter", _.setAttribute("href", href))
   }
 
   def profile(meta: Meta): web.tree.Node = {
