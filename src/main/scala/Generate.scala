@@ -22,6 +22,11 @@ object Generate extends App {
       .setDirectory(repoPath)
       .call()
 
+  repoPath
+    .listFiles()
+    .filter(_.getPath.endsWith(".html"))
+    .foreach(_.delete())
+
   val TwitterHandle = "timnieradzik"
   val TwitterUrl = "https://twitter.com/intent/tweet?text="
 
