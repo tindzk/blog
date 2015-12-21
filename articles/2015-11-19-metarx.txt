@@ -1,0 +1,46 @@
+package[value="articles"]{}
+post[id=metarx,date=2015-12-21,description=Reactive data structures,Introducing MetaRx]{
+  As part of my Scala.js web framework url[https://widok.github.io/]{Widok}, I experimented with data binding mechanisms. The idea is to bind variables such that they trigger changes in the user interface.
+
+  A couple of users requested to extract this functionality into a separate library, so url[https://github.com/MetaStack-pl/MetaRx]{MetaRx} was born. MetaRx gets cross-compiled for the JVM and therefore may be used even in UI frameworks such as Swing. For instance, url[https://github.com/outr/sgine/]{sgine} is a cross-platform UI framework which internally uses MetaRx for widget properties, animations and triggering recalculations.
+
+  MetaRx provides reactive counterparts for native data structures, such as variables, lists or maps. Their state is modelled as a stream of change objects, also called i{deltas}. This design choice allows to effectively reduce the number of DOM updates. For example, when adding a row to a list, it would be wasteful to re-render it entirely. Instead, list operations get translated into atomic DOM updates.
+
+  section[Example] {
+    The following code example shows a reactive variable:
+
+    scala[type=section,file=MetaRx,value=example]{}
+
+    code{Var} is a i{channel} which offers functional operations such as code{map()} or code{flatMap()}.
+  }
+
+  section[Recent additions] {
+      In the latest version 0.1.4 a couple of new convenience features were introduced.
+
+      subsection[Implicits for arithmetic values] {
+        scala[type=section,file=MetaRx,value=arithmetic]{}
+      }
+
+      subsection[Sub] {
+          code{Sub} is short for i{subscription} and its purpose is to take values as well as channels.
+          scala[type=section,file=MetaRx,value=sub]{}
+      }
+
+      subsection[Picklers] {
+          This feature relies on url[https://github.com/lihaoyi/upickle-pprint]{uPickle} for serialising. Use it as follows:
+          scala[type=section,file=MetaRx,value=pickling]{}
+      }
+
+      subsection[Other changes] {
+        list{
+          item{New combinator: code{takeWhile}}
+          item{ScalaTest for test cases}
+          item{Multi-page manual}
+        }
+      }
+  }
+
+  section[Links] {
+      For more information, please have a look at the url[http://metastack.pl/metarx/latest/index.html]{user manual}.
+  }
+}
