@@ -42,28 +42,39 @@ object Generate extends App {
     editSourceURL = Some("https://github.com/tindzk/blog/edit/master/"))
 
   def navigation(meta: Meta, index: Boolean): web.tree.Node = {
-    val navigation = htmlT("templates/navigation.html")
-    if (index) navigation.instantiate("index" -> web.tree.Null)
-    else navigation
+    val navigation = html("templates/navigation.html")
+    if (!index) navigation
+    else navigation.map {
+      case t: web.tree.Tag =>
+        t.set(
+          t.children.flatMap {
+            case n: web.tree.Tag if n.id.contains("index") => Seq.empty
+            case n => Seq(n)
+          }
+        )
+
+      case n => n
+    }
   }
 
   def share(meta: Meta, post: Post): web.tree.Node = {
     val tweet = s"${document.Blog.postUrl(meta, post)} - ${post.title} by @$TwitterHandle"
     val href = TwitterUrl + tweet
-    val template = htmlT("templates/share.html")
+    val template = html("templates/share.html")
     template
-      .updateChild("edit", _.setAttribute("href",
-        meta.editSourceURL.get + post.sourcePath.get)).asInstanceOf[web.tree.Tag]
-      .updateChild("twitter", _.setAttribute("href", href))
+      .updateChild[web.tree.Tag]("edit", _.setAttr("href",
+        meta.editSourceURL.get + post.sourcePath.get)
+      ).asInstanceOf[web.tree.Tag]
+      .updateChild[web.tree.Tag]("twitter", _.setAttr("href", href))
   }
 
   def profile(meta: Meta): web.tree.Node = {
-    val profile = htmlT("templates/profile.html")
+    val profile = html("templates/profile.html")
     profile
       .instantiate(
-        "author" -> web.tree.Text(meta.author),
+        "author"      -> web.tree.Text(meta.author),
         "description" -> web.tree.Text(meta.`abstract`))
-      .updateChild("avatar", _.setAttribute("src", meta.avatar.get))
+      .updateChild[web.tree.Tag]("avatar", _.setAttr("src", meta.avatar.get))
   }
 
   val files = new File("articles")
@@ -103,7 +114,7 @@ object Generate extends App {
   val pipeline =
     Document.pipeline
       .andThen(CodeProcessor.embedListings(".") _)
-      .andThen(CodeProcessor.embedOutput _)
+      .andThen(CodeProcessor.embedOutput)
   val docTreeWithCode = pipeline(docTree)
 
   val skeleton = Components.pageSkeleton(
