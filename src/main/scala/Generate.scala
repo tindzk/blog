@@ -44,38 +44,29 @@ object Generate extends App {
   def navigation(meta: Meta, index: Boolean): web.tree.Node = {
     val navigation = html("templates/navigation.html")
     if (!index) navigation
-    else navigation.map {
-      case t: web.tree.Tag =>
-        t.set(
-          t.children.flatMap {
-            case n: web.tree.Tag if n.id.contains("index") => Seq.empty
-            case n => Seq(n)
-          }
-        )
-
-      case n => n
-    }
+    else navigation.set(navigation.children.flatMap {
+      case n: web.tree.Tag if n.id.contains("index") => Seq.empty
+      case n => Seq(n)
+    })
   }
 
   def share(meta: Meta, post: Post): web.tree.Node = {
     val tweet = s"${document.Blog.postUrl(meta, post)} - ${post.title} by @$TwitterHandle"
     val href = TwitterUrl + tweet
-    val template = html("templates/share.html")
-    template
-      .updateChild[web.tree.Tag]("edit", _.setAttr("href",
-        meta.editSourceURL.get + post.sourcePath.get)
-      ).asInstanceOf[web.tree.Tag]
-      .updateChild[web.tree.Tag]("twitter", _.setAttr("href", href))
+
+    html("templates/share.html")
+      .updateChild[web.tag.A]("edit", _.href(
+        meta.editSourceURL.get + post.sourcePath.get))
+      .asInstanceOf[web.tree.Tag]
+      .updateChild[web.tag.A]("twitter", _.href(href))
   }
 
-  def profile(meta: Meta): web.tree.Node = {
-    val profile = html("templates/profile.html")
-    profile
+  def profile(meta: Meta): web.tree.Node =
+    html("templates/profile.html")
       .instantiate(
         "author"      -> web.tree.Text(meta.author),
         "description" -> web.tree.Text(meta.`abstract`))
-      .updateChild[web.tree.Tag]("avatar", _.setAttr("src", meta.avatar.get))
-  }
+      .updateChild[web.tag.Img]("avatar", _.src(meta.avatar.get))
 
   val files = new File("articles")
     .listFiles()
