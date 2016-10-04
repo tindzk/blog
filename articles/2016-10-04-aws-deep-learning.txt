@@ -1,0 +1,128 @@
+package[value="articles"]{}
+post[id=aws-deep-learning,date=2016-10-04,description="Installing CUDA, cuDNN, TensorFlow, Theano and Keras on Ubuntu Server 14.04 LTS",Setting up AWS for Deep Learning]{
+  This short article will show you how to set up an AWS instance based on Ubuntu Server 14.04 LTS. I found that most tutorials out there were either outdated or required unnecessary steps. So this is my attempt to provide a simple guide to configuring a minimal AWS instance.
+
+  We are going to install CUDA v7.5 and cuDNN v5.1, as well as TensorFlow, Theano and Keras.
+
+  section[Creating instance and connecting] {
+    We will start with creating a new GPU instance. Use the following AMI:
+
+    quote{Ubuntu Server 14.04 LTS (HVM), SSD Volume Type - ami-2d39803a}
+
+    After we have downloaded the access key, we need to change its privileges. For convenience, we are also going to store the instance's host and username in the environment variable code{AWS}:
+
+    shell {
+      chmod 400 aws-california.pem
+      export AWS=ubuntu@ec2-...
+    }
+
+    Now you can easily connect to your instance:
+
+    shell {
+      ssh -i aws-california.pem $AWS
+    }
+  }
+
+  section[Installing CUDA and cuDNN] {
+    To install CUDA, we will add its official repository, then do a system upgrade and install it along with the Linux sources and some required kernel modules:
+
+    shell {
+      wget http://developer.download.nvidia.com/compute/cuda/repos/ubuntu1404/x86_64/cuda-repo-ubuntu1404_7.5-18_amd64.deb
+
+      sudo dpkg -i cuda-repo-ubuntu1404_7.5-18_amd64.deb
+
+      sudo apt-get update
+      sudo apt-get upgrade -y
+      sudo apt-get install -y cuda linux-source linux-image-extra-virtual
+    }
+
+    We need to define the code{CUDA_HOME} environment variable which some frameworks require. Furthermore, we need to amend the user's environment variables for library and binary paths:
+
+    shell {
+      echo 'export CUDA_HOME=/usr/local/cuda-7.5
+      export LD_LIBRARY_PATH=${CUDA_HOME}/lib64
+      export PATH=${CUDA_HOME}/bin:${PATH}' >> ~/.bashrc
+    }
+
+    The following commands will install cuDNN:
+
+    shell {
+      wget http://developer.download.nvidia.com/compute/redist/cudnn/v5.1/cudnn-7.5-linux-x64-v5.1.tgz
+      tar -xzf cudnn-7.5-linux-x64-*.tgz
+      sudo cp cuda/lib64/* /usr/local/cuda/lib64
+      sudo cp cuda/include/* /usr/local/cuda/include
+    }
+
+    Now we can reboot the machine:
+
+    shell {
+      sudo reboot
+    }
+
+    As we did a system upgrade earlier and rebooted the machine, code{uname -r} now indicates the current kernel version. We will install the latest Linux headers and finally load the Nvidia kernel module:
+
+    shell {
+      sudo apt-get install linux-headers-$(uname -r)
+      sudo modprobe nvidia
+    }
+
+    If your installation was successful, you can run code{nvidia-smi} and it will should show you information about the server's GPU.
+  }
+
+  section["TensorFlow, Keras and Theano"] {
+    We are going to use Python 3's code{pip} to install TensorFlow and other Python libraries. The following command will also install some other dependencies that will be needed in future steps:
+
+    shell {
+      sudo apt-get install python3-pip gfortran subversion libblas-dev liblapack-dev libhdf5-dev
+    }
+
+    Installing TensorFlow is straightforward:
+
+    shell {
+      export TF_BINARY_URL=https://storage.googleapis.com/tensorflow/linux/gpu/tensorflow-0.10.0rc0-cp34-cp34m-linux_x86_64.whl
+      sudo pip3 install --upgrade $TF_BINARY_URL
+    }
+
+    Unfortunately, the Keras' SciPy dependency does not compile when installed via code{pip}. However, it is possible to install SciPy from Ubuntu's repositories:
+
+    shell {
+      sudo apt-get install python3-scipy
+    }
+
+    Keras has a dependency on Theano, which we are going to install implicitly:
+
+    shell {
+      sudo pip3 install keras
+    }
+
+    Optionally, you may want to install H5py which is needed to serialise Keras models:
+
+    shell {
+      sudo pip3 install h5py
+    }
+
+    Finally, we are going to configure Theano for GPU usage and also enable CNMeM for better performance. Please refer to url[http://ankivil.com/making-theano-faster-with-cudnn-and-cnmem-on-windows-10/]{this article} for more information:
+
+    shell {
+      echo '[global]
+      device = gpu
+      floatX = float32
+      optimizer = fast_run
+
+      [nvcc]
+      fastmath=True
+
+      [lib]
+      cnmem = 1.0
+
+      [blas]
+      ldflags = -llapack -lblas' > ~/.theanorc
+    }
+  }
+
+  section[Conclusion] {
+    Now your machine should be fully set up and you can start training some models.
+
+    If you see any potential for improvements, please feel free to send a pull request by clicking "Edit" below.
+  }
+}

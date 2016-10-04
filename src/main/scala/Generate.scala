@@ -35,7 +35,7 @@ object Generate extends App {
     title = "tindzk's blog",
     author = "Tim Nieradzik",
     affiliation = "MetaStack",
-    `abstract` = "Blog about Scala programming",
+    `abstract` = "Blog about Scala and Machine Learning",
     language = "en-GB",
     url = "http://nieradzik.me/",
     avatar = Some("images/avatar.png"),
