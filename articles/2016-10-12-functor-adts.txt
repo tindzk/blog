@@ -1,8 +1,8 @@
 package[value="articles"]{}
 
-post[id=functor-adts,date=2016-10-12,description="Review of Scala language features to return a call-site in ADTs",Returning call-site class type in ADTs] {
+post[id=functor-adts,date=2016-10-12,description="Review of Scala language features for call site type polymorphism",Call site type polymorphism] {
   section[Motivation] {
-    It is a common problem to define url[https://en.wikipedia.org/wiki/Algebraic_data_type]{Algebraic Data Types} (ADTs). To prevent duplication, shared functionality should be ideally kept in base code{trait}s. Oftentimes, a problem arises that in the base code{trait} we do not know the child type the function is called on:
+    It is a common problem to define class hierarchies. To prevent duplication, shared functionality should be ideally kept in base code{trait}s. Oftentimes, a problem arises that in the base code{trait} we do not know the child type the function is called on:
 
     scala[type=section,file=FunctorAdts,value=problem]{}
 
@@ -13,14 +13,14 @@ post[id=functor-adts,date=2016-10-12,description="Review of Scala language featu
     Consider a simple binary tree:
     scala[type=section,file=FunctorAdts,value=bin-tree]{}
 
-    We are going to leverage the fact that functions are contravariant in their return types. Let us extend our ADT by a code{map()} function:
+    We are going to leverage the fact that functions are contravariant in their return types. Let us extend our hierarchy by a code{map()} function:
     scala[type=section,file=FunctorAdts,value=bin-tree-map]{}
 
      In the base code{trait} we defined the function prototype, and overrode this function with the return types of the actual child classes. Thanks to contravariance code{map()} returns code{Leaf} or code{Branch}, respectively.
   }
 
   section[Type parameters] {
-    What if our ADT is a little more complicated and has several nested branch types with shared functionality? Let us consider a type-safe representation of HTML, where tags like code{div} and code{b} are represented as separate types:
+    What if our hierarchy is a little more complicated and has several nested branch types with shared functionality? Let us consider a type-safe representation of HTML, where tags like code{div} and code{b} are represented as separate types:
     scala[type=section,file=FunctorAdts,value=html-tree]{}
 
     We defined a code{trait Tag} that defines functions available on all tag nodes. Hereby, we can keep our tag classes succinct. But as code{withChildren()} is called by code{map()} from within code{Tag}, it comes at the price that we cannot return the concrete type in code{map()}. Thus, code{map()} returns code{Tag} when called on any tag node.
@@ -56,7 +56,7 @@ post[id=functor-adts,date=2016-10-12,description="Review of Scala language featu
   }
 
   section[Conclusion] {
-    We have seen a couple of ways to use the call-site type in ADTs. Whenever possible, try to make use of Scala's contravariance property. If your ADT is more complicated than that, type parameters or code{this.type} are the preferred solutions.
+    We have seen a couple of ways to use the call site type in hierarchies. Whenever possible, try to make use of Scala's contravariance property. If your ADT is more complicated than that, type parameters or code{this.type} are the preferred solutions.
 
     In a follow-up article, I am going to talk about path-dependent types and motivate them with real-world scenarios.
   }
