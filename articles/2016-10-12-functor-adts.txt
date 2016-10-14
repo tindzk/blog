@@ -1,13 +1,12 @@
 package[value="articles"]{}
 
-post[id=functor-adts,date=2016-10-12,description="Using contravariance, type parameters and type members to implement a functor in ADTs",Implementing functors in ADTs] {
+post[id=functor-adts,date=2016-10-12,description="Review of Scala language features to return a call-site in ADTs",Returning call-site class type in ADTs] {
   section[Motivation] {
-    It is a common problem to define url[https://en.wikipedia.org/wiki/Algebraic_data_type]{Algebraic Data Types} (ADTs). To prevent duplication, shared functionality should be ideally kept in base code{trait}s. Oftentimes, a problem arises that in the base code{trait} we do not know the child type the function is called on.
+    It is a common problem to define url[https://en.wikipedia.org/wiki/Algebraic_data_type]{Algebraic Data Types} (ADTs). To prevent duplication, shared functionality should be ideally kept in base code{trait}s. Oftentimes, a problem arises that in the base code{trait} we do not know the child type the function is called on:
 
-    In other words, we want to be able to implement operations such as code{map()} in terms of a functor:
-    scala[type=section,file=FunctorAdts,value=functor]{}
+    scala[type=section,file=FunctorAdts,value=problem]{}
 
-    In this article, I am going to outline different ways how to solve this particular problem in Scala.
+    In other words, for a class code{F[_]} we want to define methods in its base code{trait}. These methods should have the return type code{F[_]}. In this article, I am going to outline different ways how to solve this particular problem in Scala.
   }
 
   section[Contravariance] {
@@ -24,11 +23,11 @@ post[id=functor-adts,date=2016-10-12,description="Using contravariance, type par
     What if our ADT is a little more complicated and has several nested branch types with shared functionality? Let us consider a type-safe representation of HTML, where tags like code{div} and code{b} are represented as separate types:
     scala[type=section,file=FunctorAdts,value=html-tree]{}
 
-    We defined a code{trait Tag} that defines functions available on all tag nodes. Hereby, we can keep our tag classes succinct. But it comes at the price that the return type of code{copy()} does not get "propagated" to code{map()}. Therefore, code{map()} returns code{Tag} when called on any tag node.
+    We defined a code{trait Tag} that defines functions available on all tag nodes. Hereby, we can keep our tag classes succinct. But as code{withChildren()} is called by code{map()} from within code{Tag}, it comes at the price that we cannot return the concrete type in code{map()}. Thus, code{map()} returns code{Tag} when called on any tag node.
 
     As in our example where we provide tag-specific attributes, this turns out to be a severe limitation. For example, code{id} could not be accessed in this example on the return value of code{map}.
 
-    To remedy that our type signature does not exhibit the same type signature of a functor, we could attempt to solve it by adding a type parameter to the base code{trait}:
+    We could attempt to solve it by adding a type parameter to the base code{trait}:
     scala[type=section,file=FunctorAdts,value=type-param]{}
 
     While it works as expected, you see that our solution got unwieldy, requiring many wildcards and even type casts.
@@ -40,7 +39,14 @@ post[id=functor-adts,date=2016-10-12,description="Using contravariance, type par
 
     It still works the same, but is a much more elegant solution than type parameters.
 
-    One caveat: We cannot override type code{T} in code{Tag} with a concrete type, otherwise the return type of code{copy()} and code{map} will be fixed and cannot be changed in child classes. However, we can refine the type constraint on code{T}, which is what we have done in our solution with code{override type T <: Tag}.
+    One caveat: We cannot override type code{T} in code{Tag} with a concrete type, otherwise the return type of code{withChildren()} and code{map} will be fixed and cannot be changed in child classes. However, we can refine the type constraint on code{T}, which is what we have done in our solution with code{override type T <: Tag}.
+  }
+
+  section[this.type] {
+    An even easier solution I only recently learned would be to use the type code{this.type}:
+    scala[type=section,file=FunctorAdts,value=this-type]{}
+
+    The only downside to the previous approach is that it requires a type cast because the function is expected to return code{this}.
   }
 
   section[Examples] {
@@ -48,7 +54,7 @@ post[id=functor-adts,date=2016-10-12,description="Using contravariance, type par
   }
 
   section[Conclusion] {
-    We have seen a couple of ways to implement functors in ADTs. Whenever possible, try to make use of Scala's contravariance property. If your ADT is more complicated than that, type parameters are the preferred solution.
+    We have seen a couple of ways to use the call-site type in ADTs. Whenever possible, try to make use of Scala's contravariance property. If your ADT is more complicated than that, type parameters or code{this.type} are the preferred solutions.
 
     In a follow-up article, I am going to talk about path-dependent types and motivate them with real-world scenarios.
   }
