@@ -1,0 +1,63 @@
+package[value="articles"]{}
+
+post[id=type-polymorphism,date=2016-10-12,description="Review of Scala language features for call site type polymorphism",Call site type polymorphism] {
+  section[Motivation] {
+    It is a common problem to define class hierarchies. To prevent duplication, shared functionality should be ideally kept in base code{trait}s. Oftentimes, a problem arises that in the base code{trait} we do not know the return type of a child function:
+
+    scala[type=section,file=TypePolymorphism,value=problem]{}
+
+    In other words, for a class code{F} we want to define methods in its base code{trait}. These methods should have the return type code{F}. In this article, I am going to outline different ways how to solve this particular problem in Scala.
+  }
+
+  section[Covariance] {
+    Consider a simple binary tree:
+    scala[type=section,file=TypePolymorphism,value=bin-tree]{}
+
+    We are going to leverage the fact that functions are covariant in their return types. Let us extend our hierarchy by a code{map()} function:
+    scala[type=section,file=TypePolymorphism,value=bin-tree-map]{}
+
+     In the base code{trait} we defined the function prototype, and overrode this function with the return types of the actual child classes. Thanks to covariance code{map()} returns code{Leaf} or code{Branch}, respectively.
+  }
+
+  section[Type parameters] {
+    What if our hierarchy is a little more complicated and has several nested branch types with shared functionality? Let us consider a type-safe representation of HTML, where tags like code{div} and code{b} are represented as separate types:
+    scala[type=section,file=TypePolymorphism,value=html-tree]{}
+
+    We defined a code{trait Tag} that defines functions available on all tag nodes. Hereby, we can keep our tag classes succinct. But as code{withChildren()} is called by code{map()} from within code{Tag}, it comes at the price that we cannot return the concrete type in code{map()}. Thus, code{map()} returns code{Tag} when called on any tag node.
+
+    As in our example where we provide tag-specific attributes, this turns out to be a severe limitation. For example, code{id} could not be accessed in this example on the return value of code{map}.
+
+    We could attempt to solve it by adding a type parameter to the base code{trait}:
+    scala[type=section,file=TypePolymorphism,value=type-param]{}
+
+    While it works as expected, you see that our solution got unwieldy, requiring many wildcards and even type casts.
+
+    This approach is also called i{F-bounded type polymorphism}. You can find more information in url[http://tpolecat.github.io/2015/04/29/f-bounds.html]{this article}.
+  }
+
+  section[Type members] {
+    Luckily, Scala provides us with code{type} members a better alternative:
+    scala[type=section,file=TypePolymorphism,value=type-member]{}
+
+    It still works the same, but is a much more elegant solution than type parameters.
+
+    One caveat: We cannot override type code{T} in code{Tag} with a concrete type, otherwise the return type of code{withChildren()} and code{map} will be fixed and cannot be changed in child classes. However, we can refine the type constraint on code{T}, which is what we have done in our solution with code{override type T <: Tag}.
+  }
+
+  section[this.type] {
+    An even easier solution I only recently learned about would be to use the type code{this.type}:
+    scala[type=section,file=TypePolymorphism,value=this-type]{}
+
+    The only downside to the previous approach is that it requires a type cast because the function is expected to return code{this}.
+  }
+
+  section[Examples] {
+    We used the same technique in MetaWeb to provide type-safe bindings for HTML. See url[https://github.com/MetaStack-pl/MetaWeb/blob/master/core/shared/src/main/scala/pl/metastack/metaweb/tree/Node.scala]{this file} for our tree implementation.
+  }
+
+  section[Conclusion] {
+    We have seen a couple of ways to use the call site type in hierarchies. Whenever possible, try to make use of Scala's covariance property. If your ADT is more complicated than that, type parameters or code{this.type} are the preferred solutions.
+
+    In a follow-up article, I am going to talk about path-dependent types and motivate them with real-world scenarios.
+  }
+}
