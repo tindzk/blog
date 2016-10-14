@@ -31,6 +31,8 @@ post[id=functor-adts,date=2016-10-12,description="Review of Scala language featu
     scala[type=section,file=FunctorAdts,value=type-param]{}
 
     While it works as expected, you see that our solution got unwieldy, requiring many wildcards and even type casts.
+
+    This approach is also called i{F-bounded type polymorphism}. You can find more information in url[http://tpolecat.github.io/2015/04/29/f-bounds.html]{this article}.
   }
 
   section[Type members] {
@@ -43,7 +45,7 @@ post[id=functor-adts,date=2016-10-12,description="Review of Scala language featu
   }
 
   section[this.type] {
-    An even easier solution I only recently learned would be to use the type code{this.type}:
+    An even easier solution I only recently learned about would be to use the type code{this.type}:
     scala[type=section,file=FunctorAdts,value=this-type]{}
 
     The only downside to the previous approach is that it requires a type cast because the function is expected to return code{this}.
