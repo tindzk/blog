@@ -2,7 +2,7 @@ package articles
 
 import pl.metastack.metadocs.SectionSupport
 
-object FunctorAdts extends SectionSupport {
+object TypePolymorphism extends SectionSupport {
   sectionNoExec("problem") {
     sealed trait Base {
       def change: Base
