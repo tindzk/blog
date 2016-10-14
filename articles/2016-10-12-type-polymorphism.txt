@@ -2,7 +2,7 @@ package[value="articles"]{}
 
 post[id=type-polymorphism,date=2016-10-12,description="Review of Scala language features for call site type polymorphism",Call site type polymorphism] {
   section[Motivation] {
-    It is a common problem to define class hierarchies. To prevent duplication, shared functionality should be ideally kept in base code{trait}s. Oftentimes, a problem arises that in the base code{trait} we do not know the child type the function is called on:
+    It is a common problem to define class hierarchies. To prevent duplication, shared functionality should be ideally kept in base code{trait}s. Oftentimes, a problem arises that in the base code{trait} we do not know the return type of a child function:
 
     scala[type=section,file=TypePolymorphism,value=problem]{}
 
