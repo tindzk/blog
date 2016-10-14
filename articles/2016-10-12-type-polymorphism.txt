@@ -6,17 +6,17 @@ post[id=type-polymorphism,date=2016-10-12,description="Review of Scala language 
 
     scala[type=section,file=TypePolymorphism,value=problem]{}
 
-    In other words, for a class code{F[_]} we want to define methods in its base code{trait}. These methods should have the return type code{F[_]}. In this article, I am going to outline different ways how to solve this particular problem in Scala.
+    In other words, for a class code{F} we want to define methods in its base code{trait}. These methods should have the return type code{F}. In this article, I am going to outline different ways how to solve this particular problem in Scala.
   }
 
-  section[Contravariance] {
+  section[Covariance] {
     Consider a simple binary tree:
     scala[type=section,file=TypePolymorphism,value=bin-tree]{}
 
-    We are going to leverage the fact that functions are contravariant in their return types. Let us extend our hierarchy by a code{map()} function:
+    We are going to leverage the fact that functions are covariant in their return types. Let us extend our hierarchy by a code{map()} function:
     scala[type=section,file=TypePolymorphism,value=bin-tree-map]{}
 
-     In the base code{trait} we defined the function prototype, and overrode this function with the return types of the actual child classes. Thanks to contravariance code{map()} returns code{Leaf} or code{Branch}, respectively.
+     In the base code{trait} we defined the function prototype, and overrode this function with the return types of the actual child classes. Thanks to covariance code{map()} returns code{Leaf} or code{Branch}, respectively.
   }
 
   section[Type parameters] {
@@ -56,7 +56,7 @@ post[id=type-polymorphism,date=2016-10-12,description="Review of Scala language 
   }
 
   section[Conclusion] {
-    We have seen a couple of ways to use the call site type in hierarchies. Whenever possible, try to make use of Scala's contravariance property. If your ADT is more complicated than that, type parameters or code{this.type} are the preferred solutions.
+    We have seen a couple of ways to use the call site type in hierarchies. Whenever possible, try to make use of Scala's covariance property. If your ADT is more complicated than that, type parameters or code{this.type} are the preferred solutions.
 
     In a follow-up article, I am going to talk about path-dependent types and motivate them with real-world scenarios.
   }
