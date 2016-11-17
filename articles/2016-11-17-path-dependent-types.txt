@@ -57,7 +57,7 @@ post[id=path-dependent-types,date=2016-11-17,description="Use cases for path-dep
 
     scala[type=section,file=DependentTypes,value=type-mapping]{}
 
-    By defining a type member for every request, we can bind a response type to every request. Unfortunately, Scala is not able to infer that all response values in the code{match} are of type code{req.R}. Therefore, a type cast is required.
+    By defining a type member for every request, we can implement the code{Processor} type class and bind a response type to every request.
 
     This allows us to call code{request()} with a concrete request object and it will return the corresponding response type code{Future[Response.LogIn]}:
 

@@ -43,13 +43,19 @@ object DependentTypes extends SectionSupport {
         extends Request { override type R = Response.List  }
     }
 
-    def request(req: Request): Future[req.R] = {
-      req match {
-        case Request.LogIn(user, password) =>
-          Future.successful(Response.LogIn(None))
-        case Request.List(l) =>
-          Future.successful(Response.List(List.empty, 1))
-      }
-    }.asInstanceOf[Future[req.R]]
+    sealed trait Processor[R <: Request] { def apply(req: R): Future[req.R] }
+
+    implicit object ProcessorLogIn extends Processor[Request.LogIn] {
+      override def apply(req: Request.LogIn): Future[req.R] =
+        Future.successful(Response.LogIn(None))
+    }
+
+    implicit object ProcessorList extends Processor[Request.List] {
+      override def apply(req: Request.List): Future[req.R] =
+        Future.successful(Response.List(List.empty, 1))
+    }
+
+    def request[R <: Request](req: R)(implicit processor: Processor[R]) =
+      processor.apply(req)
   }
 }
