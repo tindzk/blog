@@ -6,7 +6,7 @@ post[id=path-dependent-types,date=2016-11-17,description="Use cases for path-dep
   As before, we use type parameters to enforce valid uses on the call site. However, now we go a step further and look at them from different angles as to enhance the expressiveness of Scala code.
 
   section[Definition] {
-    In Scala, a path-dependent type is a type member code{T} that is defined in a base code{trait} code{B} and is kept uninitialised (regardless of optional type constraints). In a child class code{C}, code{T} is instantiated with a concrete type:
+    In Scala, a path-dependent type is a type member code{T} that is defined in a base trait code{B} and is kept uninitialised (regardless of optional type constraints). In a child class code{C}, code{T} is instantiated with a concrete type:
 
     scala {*
       trait B { type T }
@@ -50,8 +50,6 @@ post[id=path-dependent-types,date=2016-11-17,description="Use cases for path-dep
     As you can see, this pattern enables us restrict the usage of a child to its parent class that instantiated it. As code{connection} has the type code{client.Connection}, it cannot be passed as an argument to code{client2.disconnect} which requires code{client2.Connection}.
 
     On the other hand, if you were to use code{ClientOps} directly instead of the code{apply()} method of our companion object, code{Connection} would be instantiated and the second code{disconnect()} becomes valid. Therefore, it is advisable to use access modifiers such as code{private}.
-
-    This pattern could be also be used when you have several implementations of the base code{trait}. Let us assume that you want to implement memory allocators in Scala Native. On the type level, you would ensure that the type of a memory region returned by the first allocator is different from the another allocator. This would prevent a segmentation fault, making the error visible during compile time.
   }
 
   section[Type mapping] {
