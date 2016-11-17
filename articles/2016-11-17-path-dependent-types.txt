@@ -1,0 +1,76 @@
+package[value="articles"]{}
+
+post[id=path-dependent-types,date=2016-11-17,description="Use cases for path-dependent types",Path-dependent types in Scala]{
+  jump[type-polymorphism]{Last time}, I have shown call site type polymorphism as a use case of type parameters. As an extension, I will discuss how the property of type members being path-dependent can be leveraged in practice.
+
+  As before, we use type parameters to enforce valid uses on the call site. However, now we go a step further and look at them from different angles as to enhance the expressiveness of Scala code.
+
+  section[Definition] {
+    In Scala, a path-dependent type is a type member code{T} that is defined in a base code{trait} code{B} and is kept uninitialised (regardless of optional type constraints). In a child class code{C}, code{T} is instantiated with a concrete type:
+
+    scala {*
+      trait B { type T }
+      class C extends B { override type T = Int }
+    *}
+
+    code{(c: C).T} is not a path-dependent type, but if you view the base code{trait} instead, code{(c: B).T} would be path-dependent. In other words, path dependence means that a type code{T} of two instances of the same class code{C} would be two distinct types. In the following example code{c1.T} and code{c2.T} would not be path-dependent:
+
+    scala {*
+      val c1 = new C
+      val c2 = new C
+      implicitly[c1.T =:= c2.T]  // Type equality holds
+    *}
+
+    However, if we downcast to the base code{trait}, we lose information about the type initialisation, which makes code{T} path-dependent:
+
+    scala {*
+      val b1: B = new C
+      val b2: B = new C
+      implicitly[b1.T =:= b2.T]  // Cannot prove that b1.T =:= b2.T
+    *}
+  }
+
+  section[Ownership] {
+    Expressing ownership on the type level allows us to ensure correct usage of initialised objects in parent-child relationships. Consider a client which can establish and close its connections:
+
+    scala[type=section,file=DependentTypes,value=ownership]{}
+
+    First, we create a code{trait} with a type member code{Connection}. It will be returned by code{connect} and can be passed to code{disconnect}. Next, we implement this code{trait}, overriding all of its members. Finally, we provide a companion object, instantiating the implementation, but returning the base code{trait}. Now, you can use it as follows:
+
+    scala {*
+      val client  = Client()
+      val client2 = Client()
+
+      val connection = client.connect
+
+      client.disconnect(connection)
+      client2.disconnect(connection)  // Type mismatch
+    *}
+
+    As you can see, this pattern enables us restrict the usage of a child to its parent class that instantiated it. As code{connection} has the type code{client.Connection}, it cannot be passed as an argument to code{client2.disconnect} which requires code{client2.Connection}.
+
+    On the other hand, if you were to use code{ClientOps} directly instead of the code{apply()} method of our companion object, code{Connection} would be instantiated and the second code{disconnect()} becomes valid. Therefore, it is advisable to use access modifiers such as code{private}.
+
+    This pattern could be also be used when you have several implementations of the base code{trait}. Let us assume that you want to implement memory allocators in Scala Native. On the type level, you would ensure that the type of a memory region returned by the first allocator is different from the another allocator. This would prevent a segmentation fault, making the error visible during compile time.
+  }
+
+  section[Type mapping] {
+    The second pattern are type mappings code{T => T.M} where code{M} is a type member. We consider a function that responds to requests, i.e. we map a request to a response:
+
+    scala[type=section,file=DependentTypes,value=type-mapping]{}
+
+    By defining a type member for every request, we can bind a response type to every request. Unfortunately, Scala is not able to infer that all response values in the code{match} are of type code{req.R}. Therefore, a type cast is required.
+
+    This allows us to call code{request()} with a concrete request object and it will return the corresponding response type code{Future[Response.LogIn]}:
+
+    scala {*
+      val response = request(Request.LogIn("user", "pass"))
+    *}
+  }
+
+  section[Conclusion] {
+    In a nutshell, use the ownership pattern when you create a path-dependent value in a parent trait and want to confine all subsequent operations to the parent object. On the other hand, type mappings are especially useful when you want to map a type onto another.
+
+    Path-dependent are an underrated feature of the Scala language. I hope this and the previous article could motivate them with real-world examples.
+  }
+}
