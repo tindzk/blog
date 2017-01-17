@@ -43,22 +43,21 @@ object DependentTypes extends SectionSupport {
         extends Request { override type R = Response.List  }
     }
 
-    sealed trait Processor[R <: Request] {
+    sealed trait Service[R <: Request] {
       def apply(req: R): Future[req.R]
     }
 
-    implicit object LogInProc extends Processor[Request.LogIn] {
+    implicit object LogInSvc extends Service[Request.LogIn] {
       override def apply(req: Request.LogIn): Future[req.R] =
         Future.successful(Response.LogIn(None))
     }
 
-    implicit object ListProc extends Processor[Request.List] {
+    implicit object ListSvc extends Service[Request.List] {
       override def apply(req: Request.List): Future[req.R] =
         Future.successful(Response.List(List.empty, 1))
     }
 
-    def request[R <: Request](req: R)
-                             (implicit proc: Processor[R]) =
-      proc.apply(req)
+    def request[R <: Request](req: R)(implicit svc: Service[R]) =
+      svc.apply(req)
   }
 }
