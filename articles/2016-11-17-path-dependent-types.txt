@@ -32,7 +32,6 @@ post[id=path-dependent-types,date=2016-11-17,description="Use cases for path-dep
 
   section[Ownership] {
     Expressing ownership on the type level allows us to ensure correct usage of initialised objects in parent-child relationships. Consider a client which can establish and close its connections:
-
     scala[type=section,file=DependentTypes,value=ownership]{}
 
     First, we create a code{trait} with a type member code{Connection}. It will be returned by code{connect} and can be passed to code{disconnect}. Next, we implement this code{trait}, overriding all of its members. Finally, we provide a companion object, instantiating the implementation, but returning the base code{trait}. Now, you can use it as follows:
@@ -54,7 +53,6 @@ post[id=path-dependent-types,date=2016-11-17,description="Use cases for path-dep
 
   section[Type mapping] {
     The second pattern are type mappings code{T => T.M} where code{M} is a type member. We consider a function that responds to requests, i.e. we map a request to a response:
-
     scala[type=section,file=DependentTypes,value=type-mapping]{}
 
     By defining a type member for every request, we can implement the code{Service} type class and bind a response type to every request.
@@ -64,6 +62,9 @@ post[id=path-dependent-types,date=2016-11-17,description="Use cases for path-dep
     scala {*
       val response = request(Request.LogIn("user", "pass"))
     *}
+
+    To make this pattern more convenient to use, we use a special notation to access child members (code{#}) which allows us to make the response type in code{Service} a type parameter. This enables us to define a companion object to instantiate services. As a consequence, defining new services becomes much easier:
+    scala[type=section,file=DependentTypes,value=type-mapping-companion]{}
   }
 
   section[Conclusion] {
