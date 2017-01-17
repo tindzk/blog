@@ -16,7 +16,7 @@ post[id=type-polymorphism,date=2016-10-12,description="Review of Scala language 
     We are going to leverage the fact that functions are covariant in their return types. Let us extend our hierarchy by a code{map()} function:
     scala[type=section,file=TypePolymorphism,value=bin-tree-map]{}
 
-     In the base code{trait} we defined the function prototype, and overrode this function with the return types of the actual child classes. Thanks to covariance code{map()} returns code{Leaf} or code{Branch}, respectively.
+    In the base code{trait} we defined the function prototype, and overrode this function with the return types of the actual child classes. Thanks to covariance code{map()} returns code{Leaf} or code{Branch}, respectively.
   }
 
   section[Type parameters] {
@@ -42,13 +42,23 @@ post[id=type-polymorphism,date=2016-10-12,description="Review of Scala language 
     It still works the same, but is a much more elegant solution than type parameters.
 
     One caveat: We cannot override type code{T} in code{Tag} with a concrete type, otherwise the return type of code{withChildren()} and code{map} will be fixed and cannot be changed in child classes. However, we can refine the type constraint on code{T}, which is what we have done in our solution with code{override type T <: Tag}.
+
+    Type members also work if our base class is already parameterised. Consider a list type:
+    scala[type=section,file=TypePolymorphism,value=type-member-covariance]{}
+
+    Note that if code{MySeq[T]} was covariant (i.e. code{trait MySeq[+T]}), the compiler requires you to indicate this as well in the code{type} member: code{type Child[+T] <: MySeq[T]}.
   }
 
   section[this.type] {
     An even easier solution I only recently learned about would be to use the type code{this.type}:
     scala[type=section,file=TypePolymorphism,value=this-type]{}
 
-    The only downside to the previous approach is that it requires a type cast because the function is expected to return code{this}.
+    There are two downsides to this approach: First, it requires a type cast because the function is expected to return code{this}.
+
+    Second, code{this.type} cannot be parameterised. In the following example, we would expect code{map()} on all children code{C[T]} to return code{C[U]} instead of code{C[T]}:
+    scala[type=section,file=TypePolymorphism,value=this-type-parameterised]{}
+
+    Unfortunately, the type parameter is implicitly included in code{this.type}, whereby code{this.type[U]} would result in a syntax error.
   }
 
   section[Examples] {

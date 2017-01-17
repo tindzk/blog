@@ -113,6 +113,20 @@ object TypePolymorphism extends SectionSupport {
     div.map(identity): Div
   }
 
+  sectionNoExec("this-type-parameterised") {
+    trait MySeq[T] {
+      def map[U](f: T => U): this.type
+    }
+
+    class MyList[T] extends MySeq[T] {
+      override def map[U](f: T => U): this.type = ???
+    }
+
+    class MyVector[T] extends MySeq[T] {
+      override def map[U](f: T => U): this.type = ???
+    }
+  }
+
   sectionNoExec("type-member") {
     sealed trait Node {
       type T <: Node
@@ -138,5 +152,22 @@ object TypePolymorphism extends SectionSupport {
 
     val div = Div(None, Text("Hello"))
     div.map(identity): Div
+  }
+
+  sectionNoExec("type-member-covariance") {
+    trait MySeq[T] {
+      type Child[T] <: MySeq[T]
+      def map[U](f: T => U): Child[U]
+    }
+
+    class MyList[T] extends MySeq[T] {
+      override type Child[T] = MyList[T]
+      override def map[U](f: T => U): Child[U] = new MyList[U]
+    }
+
+    class MyVector[T] extends MySeq[T] {
+      override type Child[T] = MyVector[T]
+      override def map[U](f: T => U): Child[U] = new MyVector[U]
+    }
   }
 }
