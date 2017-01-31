@@ -1,0 +1,40 @@
+post[id=type-inference,date=2017-01-31,description="Using wrapper classes to aid type inference",Inferring implicit type parameters]{
+    Recently, I was working on url[https://github.com/MetaStack-pl/MetaRouter]{MetaRouter}, a url[https://github.com/milessabin/shapeless]{Shapeless}-based routing library for Scala. I wanted to create a function that takes a type parameter and resolves auxiliary ones via implicits. The function in question looked like this:
+
+    scala {*
+        def route[T, ROUTE <: HList, Params <: HList]
+          (route: Route[ROUTE])
+          (implicit
+            gen: gen: Generic.Aux[T, Params],
+            map: FlatMapper.Aux[Args.Convert.type, ROUTE, Params]
+          ): MappedRoute[ROUTE, T] = new MappedRoute[ROUTE, T](route)
+    *}
+
+    To give some context, this function is supposed to ensure that a code{case class} provided as code{T} matches the parameters of a route. The parameters of a route are its placeholders as an code{HList}. For instance, code{Root / "details" / Arg[Int]} has one placeholder which is in the terminal position.
+
+    The user should be able to call this function only by specifying code{T}:
+
+    scala {*
+        Router.route[Details](Root / "details" / Arg[Int])
+    *}
+
+    Unfortunately, the above function would require us to also specify code{ROUTE} and code{Params}.
+
+    Poking around the source code of Shapeless I discovered a trick that allows you to bypass this step by creating a helper class with an code{apply()} method:
+
+    scala {*
+      private[metarouter] class MappedRouterHelper[T] {
+        def apply[ROUTE <: HList, Params <: HList]
+          (route: Route[ROUTE])
+          (implicit
+            gen: Generic.Aux[T, Params],
+            map: FlatMapper.Aux[Args.Convert.type, ROUTE, Params]
+          ): MappedRoute[ROUTE, T] =
+            new MappedRoute[ROUTE, T](route)
+      }
+
+      def route[T] = new MappedRouterHelper[T]
+    *}
+
+    When the user calls code{route[T]}, the types of our two code{HList}s are inferred within the code{apply()} call and do not need to be provided by the user.
+}
