@@ -5,7 +5,7 @@ post[id=type-inference,date=2017-01-31,description="Using wrapper classes to aid
         def route[T, ROUTE <: HList, Params <: HList]
           (route: Route[ROUTE])
           (implicit
-            gen: gen: Generic.Aux[T, Params],
+            gen: Generic.Aux[T, Params],
             map: FlatMapper.Aux[Args.Convert.type, ROUTE, Params]
           ): MappedRoute[ROUTE, T] = new MappedRoute[ROUTE, T](route)
     *}
