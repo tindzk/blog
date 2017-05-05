@@ -1,0 +1,47 @@
+post[id=rethinking-creativity,date=2017-05-05,description="",Rethinking creativity]{
+    This article was jointly written by url[https://sites.google.com/site/yetianlinguistics/]{Ye Tian} and myself. When we met at the computational linguistics conference url[http://eacl2017.org/]{EACL 2017}, we talked about the staggering speed in the development of Artificial Intelligence footnote{AI has many different interpretations. We define it narrowly as task automation by replicating a desired output (supervised learning) or by generating likely outputs (generative algorithms, Reinforcement Learning).} along with people's fears. If one types i{"Is AI going to make us jobless?"} into Google, this is a glimpse of answers you would get:
+
+    quote{AI 'could leave half of world unemployed' — The Guardian}
+    quote{AI will create "useless class" of human, predicts bestselling historian. — The Guardian}
+    quote{AI and robots threaten to unleash mass unemployment, scientists warn. — Financial Times}
+    quote{The rise of artificial intelligence risks making us all redundant. — The Independent}
+    quote{A world without work — The Atlantic}
+
+    All the top results present a negative, rather doom-laden image, suggesting that we are destined to become useless and unemployed. Here is an alternative view we would like to explore: Perhaps AI will free us from work that i{restricts creativity}. You might wonder what it means to be creative and whether everyone possesses this ability.
+
+    In this article, we revisit the commonly held assumptions of creativity. We each picked one aspect. Ye investigates the link between creativity and individuals, whereas I examine creativity in the workplace.
+
+    section[Only individuals have creativity?]{
+        When we talk about creativity, the default perspective is that it is something only i{individuals} have. We think of the creative process as something internal and cognitive; as a projection from a single mind to the world; we admire creative geniuses who hold distinctive views or imaginations; we ask questions like "how can I be more creative?". From this perspective, to be creative is to break away from the crowd, url[https://hbr.org/2016/01/resolving-the-paradox-of-group-creativity]{to be different from everyone else}. We feel as if people are divided into two groups, the majority "not being creative", and a minority of individuals who manage to deviate and impress. Naturally, under this assumption, being creative is not the norm. But is this assumption too restrictive?
+
+        Perhaps creativity isn't about, or isn't i{just} about individuals. We may not be geniuses like Picasso, Da Vinci or Wagner, but we are not clones of each other with identical ways of thinking, feeling or sensing. When we interact with each other, the group can create wonders that no individual can predict or produce on their own. Recently, Reddit hosted an interesting experiment (read more in this url[http://sudoscript.com/reddit-place/]{fantastic article}), where millions of people freely and interactively drew by placing coloured pixels on a blank canvas. The evolution and the end result were "nothing short of miraculous". In this process, what was remarkable was not individual creativity as no one stood out. Instead, miraculous art came into being from the interaction among millions of people. 
+
+        This is where mass creativity can occur.  Our interaction will create new ideas and solve problems that are out of reach for any individual. Collaborative creativity already has a great presence, in collaborative knowledge bases such as Wikipedia; in collective question-answer interactions, e.g. Quora and Stack Overflow; in open-source software development, e.g. Linux and R; in business idea generation, e.g. url[https://ideas.lego.com/]{Lego Ideas} and url[http://www.ideastorm.com/]{Dell IdeaStorm}. Aristotle said that "a feast to which many contribute is better than a dinner provided out of a single purse". The advancement of technology enables more of us to join in the "feast of creation" more than ever before.
+    }
+
+    section[Creativity in the workplace]{
+        Creativity is commonly associated with the Arts, but should not be confined to this domain. Instead, we perceive creativity in its contrasting position from consumption. Our hypothesis: In the upcoming years, our largely consumption-based society will be more balanced with creativity playing a larger role.
+
+        First off, everyone can be creative and there are many dimensions creativity can take: Programmers see their code as an art, physicists see url["https://www.youtube.com/watch?v=VSG9q_YKZLI"]{beauty in processes} and such statements can be found in nearly every discipline. Children are notably very creative, but this skill is sometimes weaned off as the child grows into adulthood because of the tasks which we engage in as a society. Over the past few hundred years, societies migrated from labour-intensive work like agriculture to white-collar jobs. Office workers and shopping assistants are caught in the daily routine of repeatedly performing the same tasks. The primary focus for doing the job so far have been financial obligations and social pressure such as the fear of becoming unemployed.
+
+        However, the situation in the workplace is starting to change. People no longer plan lifetime careers in only one company, but rather ones based on url[http://www.bbc.com/capital/story/20170424-the-next-generation-of-jobs-wont-be-made-up-of-professions]{a portfolio}. Jobs with a stronger focus on self-expression are going to be ever more in demand. A recent endeavour in the workplace is to foster healthy working conditions, with the startup world at the fore-front. Furthermore, corporations started offering other benefits such as job advancement prospects. But all these efforts do not go to the core of the actual work and merely represent perks.
+
+        subsection[AI and the commoditisation of creative work]{
+            The aforementioned shift to office work is mainly a result of increased automation. As the next frontier, we claim that AI is an opportunity for us to change our jobs towards more creative work and higher-level thinking.
+
+            Right now, we witness a transformation period with the advent of AI. Self-cashout machines and shops similar to url["https://www.youtube.com/watch?v=NrmMk1Myrxc"]{Amazon Go} are on the rise. Labour is therefore becoming less transactional and more qualitative. Similarly, a commoditisation of creative work is taking place. AI already enables people to enhance the creative process by improving the style of texts (url[https://www.grammarly.com/]{Grammarly}), generating pictures (url[https://deepart.io/]{deepart}) and translating texts (url[https://translate.google.com/]{Google Translate}).
+
+            AI could become an important complementary tool, akin to other technologies our ancestors have developed. A successful and ethical use of automation or AI does not replace workers, but will offer novel opportunities for them to develop new skills and make their work more humane. As a cautionary note, the involvement of employers is required to actively assist the workers in this transition by offering retrainings instead of resorting to layoffs.
+        }
+
+        subsection[Remuneration] {
+            If we see an economy focus more on original work creation, we will also value creativity differently. The problem is that creativity is a process and our current economy is driven by the premise that results and goods are paid for. How we financially remunerate the creative process remains an open question. It is likely that the future economy will attribute more financial value to the process as opposed to solely the product of the work. We can already see this in the organic and vegan food industry where financial value gets attributed to ethical or environmental considerations.
+        }
+    }
+
+    section[Conclusion]{
+        Will AI push most of us out of work? Yes, it will push us out of work that is mundane and devoid of creativity.
+
+        But how can we all be creative? Creativity isn't an intellectual gift possessed by the lucky few. When we interact and collaborate, we as a group can create things that are beyond the capability of any genius. Creativity doesn't have to be focused in the Arts, while office workers perform repetitive tasks. We can shift towards an economy based on more creativity and thinking, and AI will pay an important role here. Isn't that a future all of us can look forward to?
+    }
+}
