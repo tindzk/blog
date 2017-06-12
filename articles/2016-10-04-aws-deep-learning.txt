@@ -122,6 +122,8 @@ post[id=aws-deep-learning,date=2016-10-04,description="Installing CUDA, cuDNN, T
       [blas]
       ldflags = -llapack -lblas' > ~/.theanorc
     }
+
+    If you encounter NaN losses when training models, disable code{fastmath}.
   }
 
   section[Conclusion] {
