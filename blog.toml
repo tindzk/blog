@@ -1,0 +1,15 @@
+[meta]
+title         = "tindzk's blog"
+author        = "Tim Nieradzik"
+affiliation   = ""
+abstract      = "Blog about Scala and NLP"
+language      = "en-GB"
+url           = "http://nieradzik.me/"
+editSourceUrl = "https://github.com/tindzk/blog/edit/master/"
+twitterHandle = "timnieradzik"
+
+[input]
+paths = ["articles/*.md"]
+
+[assets]
+paths = ["css", "js", "img", "fonts", "favicon.ico"]
