@@ -81,7 +81,7 @@ For movies, a plug-in for [mpv](https://mpv.io/) could make subtitles clickable.
 
 For Android-based e-book readers, it is possible to modify [FBReader](https://github.com/geometer/FBReaderJ) and equip it with an offline dictionary that can perform stemming. When tapping a word, it could look up the base form or use Google Translate to show context-specific translations.
 
-For chat, a browser extension could integrate with Telegram and other messagers. Depending on the current interlocutor, it would choose the correct keyboard layout and perform transliteration if needed. It might even point out grammar or stylistic errors.
+For chat, a browser extension could integrate with Telegram and other messengers. Depending on the current interlocutor, it would choose the correct keyboard layout and perform transliteration if needed. It might even point out grammar or stylistic errors.
 
 Taking it a step further, a client-server architecture could be devised. Such an architecture should be agnostic to the content types. At the base, it could consist of a centralised server with an API that the different program integrations and plug-ins interact with. This would allow to aggregate all the different data streams in a central place.
 
