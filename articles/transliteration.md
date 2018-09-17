@@ -7,12 +7,12 @@ description = "Use cases and techniques for transliteration"
 ---
 
 # Introduction
-The word *transliteration* is derived from the morphemes *trans-* (across, through) and *liter-* (letter). It denotes the translation from one alphabetic writing system into another. As an example, the city of Харків in Ukraine written in the Cyrillic script is commonly transliterated as either *Kharkiv* or *Harkiv* in the Latin script. This single example shows that there is no single mapping. The standard alphabet of any language is always optimised to accommodate its syntactic peculiarities.
+The word *transliteration* is derived from the morphemes *trans-* (across, through) and *liter-* (letter). It denotes the translation from one alphabetic writing system into another. As an example, the city of Харків in Ukraine written in the Cyrillic script is commonly transliterated as either *Kharkiv* or *Harkiv* in the Latin script. This single example shows that there is no single mapping. The standard alphabet of any language is always optimised to accommodate its phonotactic peculiarities. Note that this does not necessarily imply that the alphabet is also the most compact. For example, a more optimised alphabet for English would use single letters for *ts*, *sh* and *ch*.
 
 In this article, we will look at use cases for transliteration and explore various considerations to be made when designing rules. To this end, I will present the [translit-scala](https://github.com/sparsetech/translit-scala) library. Its development informed many of the examples and best practices outlined in this article.
 
 # Use cases
-The most common use of transliteration is for foreign entities. In Russian, the name *Steve Jobs* would be written as *Стив Джобс*. It does not adhere to the English spelling, but rather to the sounds. This phenomenon also applies to cities, products and other non-Russian names. The motivation is that it allows for a more natural integration of words and their adaptation to Russian grammar, e.g. declension. For example, *Steve Jobs' book* is translated as *книга Стива Джобса*. The word suffix `-а` is a case marker which has the same possessive role as the **'s** or **s'** in English. In Latin-script Slavic languages the original spelling of foreign words is retained and the case marker is added. In Polish, the convention is to use an apostrophe to modify words with a trailing vowel sound: *Steve'a Jobsa* or *Harry'ego Pottera*.
+The most common use of transliteration is for foreign entities. In Russian, the name *Steve Jobs* would be written as *Стив Джобс*. It does not adhere to the English spelling, but rather to the sounds. This phenomenon also applies to cities, products and other non-Russian names. The motivation is that it allows for a more natural integration of words and their adaptation to Russian grammar, e.g. declension. For example, *Steve Jobs' book* is translated as *книга Стива Джобса*. The word suffix `-а` is a case marker which has the same possessive role as the **'s** or **s'** in English. In Latin-script Slavic languages the original spelling of foreign words is retained and the case marker is added. In Polish, the convention is to use an apostrophe to modify words with a trailing vowel letter: *Steve'a Jobsa* or *Harry'ego Pottera*.
 
 International passports are the most prominent use of transliteration in the other direction. These contain a person's name in the original (e.g. Cyrillic) and Latin script. To avoid ambiguities, governments issue rules on how to correctly transliterate names.
 
@@ -20,7 +20,7 @@ Another use case are domain names. Although Unicode domains are widely supported
 
 Search Engine Optimisation (SEO) is about improving the visibility of a website in search engines. Users who search for content using transliterated letters will receive more results if website content is transliterated. Furthermore, when copying links, browsers encode them as follows: `https://ru.wikipedia.org/wiki/%D0%A1%D0%BF%D0%B8%D1%81%D0%BE%D0%BA_%D0%BB%D0%B0%D1%82%D0%B8%D0%BD%D1%81%D0%BA%D0%B8%D1%85_%D0%B1%D1%83%D0%BA%D0%B2` With transliteration, the URL would still be readable and considerably shorter, e.g. `https://ru.wikipedia.org/wiki/Spisok_latinskih_bukv`. Server-side software provides the ability to set up an alias, so both links would be valid.
 
-In Natural Language Processing (NLP), there are two use cases: Machine Translation and disambiguation. Foreign names are often transliterated, as seen before. Disambiguation is the reverse operation: for example, in a travel or e-commerce chatbot, users may write a product or city name in either the original or transliterated spelling. Rather than accepting only exact matches, the chatbot could generate candidate transliterations.
+In Natural Language Processing (NLP), there are two use cases: Machine translation and disambiguation. Foreign names are often transliterated, as seen before. Disambiguation is the reverse operation: for example, in a travel or e-commerce chatbot, users may write a product or city name in either the original or transliterated spelling. Rather than accepting only exact matches, the chatbot could generate candidate transliterations.
 
 Two characters looking exactly the same may still denote different letters. For example, p denotes "Latin Small Letter P" and has the code U+0070, whereas р is "Cyrillic Small Letter Er" and its code is U+0440. Confusing two similar-looking letters from different scripts is likely to happen when dealing with multiple keyboards and languages. This underlines the importance of disambiguation of user input, such as in the chatbot example.
 
@@ -36,7 +36,7 @@ Transliteration is a challenging problem as there is not always a direct equival
 We can conclude that unique rules must be specified for individual languages and they need to account not only for spelling, but also pronunciation differences.
 
 # Rule-based approach
-Languages follow inherent patterns, such as certain letter and sound combinations being more common than others. The most accurate way to transcribe words in a language is to use its official alphabet, but by modeling syntactic and phonetic patterns we can project words even onto other language alphabets. Suffice it to say, there is no single ground of truth in transliteration. Models can be of arbitrary complexity, ranging from hand-engineered character-level replacement rules, to Machine Learning models.
+Languages follow inherent patterns, such as certain letter and sound combinations being more common than others. The most accurate way to transcribe words in a language is to use its official alphabet, but by modelling syntactic and phonetic patterns we can project words even onto other language alphabets. Suffice it to say, there is no single ground of truth in transliteration. Models can be of arbitrary complexity, ranging from hand-engineered character-level replacement rules, to Machine Learning models.
 
 Character-level replacement rules may look as follows:
 
@@ -56,9 +56,9 @@ Rules can be derived by establishing a relationship between the source and targe
 1. [Grapheme](https://en.wikipedia.org/wiki/Grapheme) similarity, or
 2. [Phoneme](https://en.wikipedia.org/wiki/Phoneme) similarity
 
-An example for grapheme similarity is the Latin letter *m*, which could be mapped onto the Slavic *м*, or the letter *b*, which could be mapped onto *в*.
+An example for grapheme similarity is the Latin letter *m*, which could be mapped onto the Cyrillic *м*, or the letter *b*, which could be mapped onto *в*.
 
-Phoneme similarity, on the other hand, establishes a relationship based on sounds: for example, the Cyrillic *x* could be mapped onto *h* (as in house) or *kh* (as in khaki). It is said that these two letters are homophones.
+Phoneme similarity, on the other hand, establishes a relationship based on sounds: for example, the Cyrillic *л* is mapped onto *l*. It is said that these two letters are homophones. There are also Cyrillic letters without a straightforward English analogue: *x* is commonly mapped onto *h* (as in *house*) or *kh* (pronunced like *ch* in *loch*).
 
 For instance, the Russian *hacker* (хакер) can be transliterated as either *xakep* (graphemes) or *haker* (phonemes).
 
@@ -90,7 +90,7 @@ When coming up with a set of rules, several factors are to be considered:
 * **Special characters:** Every character should be mapped, including soft/hard signs, apostrophes, etc. Otherwise, the transliteration is not reversible.
 * **Conflicts:** Two Latin letters may correspond to several letters in the target language (homophones).
 * **Keyboard position:** A common letter should be easy to type. The key travel distance of common sequences should be considered.
-* **Shortcuts:** If there any unused Latin letters, these could be bound to long n-grams for convenience. For example, *q* could be mapped onto *щ* (shch) and *w* onto *ш*, as these two letters would have no meaning otherwise in Cyrillic languages.
+* **Shortcuts:** If there any unused Latin letters, these could be bound to long n-grams for convenience. For example, *q* could be mapped onto *щ* (shch) and *w* onto *ш* (sh), as these two letters would have no meaning otherwise in Cyrillic languages.
 * **Ambiguous mappings:** Can certain letters have several meanings in different contexts? Use an adaptive approach that looks at the context, or introduce a precedence separator for disambiguation.
 * **Lookahead:** Does the rule require a lookahead, i.e. the right context? This should be avoided if possible as it makes on-the-fly transliteration harder.
 
@@ -132,9 +132,9 @@ There are no trigrams, but there is one 4-gram:
 |------|
 | щ    |
 
-Unlike Russian, Ukrainian does not have a hard sign. Instead, it has a soft sign and an apostrophe. There is experimental support for disambiguating apostrophes by looking at the context. This only works if the left and right context is available. For example, the word *п'ять* (English: *five*), corresponds to *p'yat'*. The first apostrophe stays an apostrophe, whereas the second becomes a soft sign.
+Unlike Russian, Ukrainian does not have a hard sign. Instead, it has a soft sign and an apostrophe. There is experimental support for disambiguating apostrophes by looking at the context. This only works if the left and right context is available. For example, the word *п'ять* (English: *five*), corresponds to *p'yat'*. The first apostrophe comes from an apostrophe, whereas the second comes from a soft sign.
 
-The above rules converged after numerous modifications from the official *National 2010* government rules. For more information on the reasoning behind the mappings, please refer to the project page.
+The above rules converged after numerous modifications from the [official *National 2010* government rules](http://zakon1.rada.gov.ua/laws/show/55-2010-%D0%BF). For more information on the reasoning behind the mappings, please refer to the project page.
 
 ## Library
 The library can be used as follows:
@@ -178,7 +178,7 @@ After the reverse direction has been implemented, i.e. Cyrillic to Latin, we cou
 
 
 ## Optimisation
-There are [endeavours](http://mkweb.bcgsc.ca/carpalx/?typing_effort) to optimise keyboard layouts, for example by modeling typing effort. While transliteration is agnostic to the keyboard layout, we can assume that it will be used with the QWERTY layout. The mappings could be optimised by taking into account texts from a large corpus, and measuring different metrics such as number of letters needed or finger travel distance for the letters in a word.
+There are [endeavours](http://mkweb.bcgsc.ca/carpalx/?typing_effort) to optimise keyboard layouts, for example by modelling typing effort. While transliteration is agnostic to the keyboard layout, we can assume that it will be used with the QWERTY layout. The mappings could be optimised by taking into account texts from a large corpus, and measuring different metrics such as number of letters needed or finger travel distance for the letters in a word.
 
 ## Machine Learning
 So far the mapping rules have been manually defined. Another approach would be to use a sequence-to-sequence model such as LSTM. There are two use cases:
