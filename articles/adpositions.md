@@ -62,7 +62,7 @@ The expressed semantics of an AP does not solely depend on the words in the AP, 
 
 The ability to correctly identify and classify entities is critical to NLP applications such as search engines and chatbots. In both cases, user inputs have to be mapped onto a set of pre-defined commands and attributes:
 
-I<tag>Subject</tag> would like [to book]<tag>Intent</tag> [for two nights]<tag>Duration</tag> [at your hotel]<tag>Locus</tag> [in October 2018]<tag>Time</tag>.
+I<tag>Subject</tag> would like [to book]<tag>Intent</tag> a room [for two nights]<tag>Duration</tag> [at your hotel]<tag>Locus</tag> [in October 2018]<tag>Time</tag>.
 
 As with PP attachment, the challenge is to narrow down the semantic space subject to contextual constraints. Due to the interplay of verbs and adpositions, an understanding of the roles an adposition can serve will lead to more reliable entity classification.
 
