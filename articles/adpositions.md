@@ -41,7 +41,7 @@ Interestingly, the ambiguity above does not apply to other languages in the same
 
 1. Он купил рубашку с рукавами. \
    *lit.:* he bought shirt with sleeves<tag>accompaniment</tag>
-2. Он почистил рубашку мылом. \
+2. Он постирал рубашку мылом. \
    *lit.:* he cleaned shirt soap<tag>instrument</tag>
 
 This reveals an intricate relationship between adpositions, grammar (case morphology or affixes) and semantics. Most strikingly, while languages represent a shared semantic space, the linguistic means by which semantics is expressed varies.
