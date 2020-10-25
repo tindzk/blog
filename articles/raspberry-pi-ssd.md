@@ -10,7 +10,7 @@ references  = "adpositions.toml"
 # Introduction
 A few months ago, I upgraded my Raspberry Pi 3 home server to the latest model. With a faster CPU and significantly more RAM, the Pi 4 proves ideal for running networking services. Raspberry Pis are especially appealing as servers due to their compact design and low power consumption.
 
-Over time, I kept more adding networking services to the Pi 4. Now, it hosts a number of different services, including NFS, Gitea, PostgreSQL, Docker Registry, Bitwarden and nginx. The old Pi 3 is still in use and functions as a secondary server for off-site backups.
+Over time, I kept adding more networking services to the Pi 4. Now, it hosts a number of different services, including NFS, Gitea, PostgreSQL, Docker Registry, Bitwarden and nginx. The old Pi 3 is still in use and functions as a secondary server for off-site backups.
 
 This article discusses my Pi 4 setup and some of the issues I encountered.
 
@@ -24,7 +24,7 @@ Although the latest Pi 4 firmware supports booting from SSD, I decided to keep t
 To run the simulations for my MSc thesis, I also overclocked the CPU to 2 GHz which improves the performance. A [heatsink](https://thepihut.com/products/aluminium-armour-heatsink-case-for-raspberry-pi-4) was necessary to keep the temperature under control.
 
 # SSD problems
-The entire setup has been running stable for two months — until today. I set out to copy 20 GB to the external drive via NFS. The `cp` command worked fine for a few minutes, but stopped suddenly. Checking the kernel logs with `dmesg`, I was with presented with a long list of errors, the first ones being:
+The entire setup has been running stable for two months — until today. I set out to copy 20 GB to the external drive via NFS. The `cp` command worked fine for a few minutes, but stopped suddenly. Checking the kernel logs with `dmesg`, I was presented with a long list of errors, the first ones being:
 
 ```
 [347246.330762] usb 2-2: USB disconnect, device number 2
