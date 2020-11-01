@@ -4,7 +4,6 @@ published   = 2020-10-25
 language    = "en-GB"
 categories  = ["devops"]
 description = "Discusses disk issues encountered while upgrading a Pi 3 to a Pi 4"
-references  = "adpositions.toml"
 +++
 
 # Introduction
