@@ -4,7 +4,7 @@ author        = "Tim Nieradzik"
 affiliation   = ""
 abstract      = "Blog about Scala and NLP"
 language      = "en-GB"
-url           = "http://nieradzik.me/"
+url           = "https://nieradzik.me/"
 editSourceUrl = "https://github.com/tindzk/blog/edit/master/"
 twitterHandle = "timnieradzik"
 

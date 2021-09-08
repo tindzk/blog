@@ -97,7 +97,7 @@ When coming up with a set of rules, several factors are to be considered:
 It turns out that we are looking at an optimisation problem that has many constraints. In my work so far, this optimisation step was performed manually by trial-and-error and using the transliteration schema in real-world scenarios. It would be valuable to explore automated approaches to find alternative, more optimal rules.
 
 # Implementation
-The transliteration mechanism was implemented as a Scala library, which can be found [here](http://github.com/sparsetech/translit-scala). Currently, it has support for Russian and Ukrainian.
+The transliteration mechanism was implemented as a Scala library, which can be found [here](https://github.com/sparsetech/translit-scala). Currently, it has support for Russian and Ukrainian.
 
 To limit the scope of this article, let us briefly explore how the Ukrainian alphabet is mapped. It is phonetic at its base, but with several extensions.
 
