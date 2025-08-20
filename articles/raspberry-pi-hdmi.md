@@ -13,7 +13,7 @@ A key difference is that hot-plugging monitors to a Pi is only supported if the 
 
 If the Pi is operated as a server and located in a safe environment, HDMI access without having to necessarily reboot is still desirable. To investigate kernel crashes or connectivity issues, being able to hook up a monitor on-the-fly will avoid having to use a serial connection.
 
-Gladly, the Pi is highly configurable and lets us fully customise the HDMI output. This article discusses all the steps required for a persistent HDMI configuration specific to your monitor, allowing you to hot-plug whenever direct access is needed. 
+Gladly, the Pi is highly configurable and lets us fully customise the HDMI output. This article discusses all the steps required for a persistent HDMI configuration specific to your monitor, allowing you to hot-plug whenever direct access is needed.
 
 # Setup
 I recently acquired an HiDPI e-Ink monitor ([DASUNG Paperlike HD](http://www.dasungtech.com/)) which is attached to an HDMI switch ([HuTools 4K HDMI Switch](https://www.amazon.com/Splitter-HuTools-Bi-Directional-Switcher-Supports/dp/B07TT4Y6VG)) that receives inputs from a laptop and Pi 4. This allows me to change the monitor's input with the press of a button.
