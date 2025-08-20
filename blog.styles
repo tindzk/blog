@@ -1,0 +1,1177 @@
+global style {
+  /**
+   * From https://github.com/tmke8/math-core/blob/main/playground/style.css#L64
+   * From https://www.joshwcomeau.com/css/custom-css-reset/
+   */
+
+  @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+
+  @font-face {
+    font-family: NewComputerModernMath Book;
+    src: url('/fonts/NewCMMath-Book-prime-roundhand-vec.woff2') format('woff2');
+    font-display: swap;
+  }
+
+  /* 1. Use a more-intuitive box-sizing model */
+  *, *::before, *::after {
+    box-sizing: border-box;
+  }
+
+  /* 2. Remove default margin */
+  * {
+    margin: 0;
+  }
+
+  /* 3. Enable keyword animations */
+  @media (prefers-reduced-motion: no-preference) {
+    html {
+      interpolate-size: allow-keywords;
+    }
+  }
+
+  body {
+    /* 4. Add accessible line-height */
+    line-height: 1.5;
+    /* 5. Improve text rendering */
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* 6. Improve media defaults */
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+  }
+
+  /* 7. Inherit fonts for form controls */
+  input, button, textarea, select {
+    font: inherit;
+  }
+
+  /* 8. Avoid text overflows */
+  p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+  }
+
+  /* 9. Improve line wrapping */
+  p {
+    text-wrap: pretty;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    text-wrap: balance;
+  }
+
+  table {
+      display: block;
+      overflow-x: scroll;
+      margin-bottom: 15px;
+
+      th {
+          background: #fafafa;
+          font-size: 14px;
+          line-height: 14px;
+          color: #333333;
+          font-weight: 400;
+          padding: 15px 15px 13px;
+          text-transform: uppercase;
+          border: 1px solid #d0d0d0;
+          text-align: left;
+      }
+
+      td {
+          font-size: 14px;
+          line-height: 14px;
+          color: #666666;
+          padding: 15px 15px 13px;
+          border: 1px solid #d0d0d0;
+      }
+  }
+
+  :root {
+    /* Tailwind colours */
+    --color-red-50: oklch(0.971 0.013 17.38);
+    --color-red-100: oklch(0.936 0.032 17.717);
+    --color-red-200: oklch(0.885 0.062 18.334);
+    --color-red-300: oklch(0.808 0.114 19.571);
+    --color-red-400: oklch(0.704 0.191 22.216);
+    --color-red-500: oklch(0.637 0.237 25.331);
+    --color-red-600: oklch(0.577 0.245 27.325);
+    --color-red-700: oklch(0.505 0.213 27.518);
+    --color-red-800: oklch(0.444 0.177 26.899);
+    --color-red-900: oklch(0.396 0.141 25.723);
+    --color-red-950: oklch(0.258 0.092 26.042);
+    --color-orange-50: oklch(0.98 0.016 73.684);
+    --color-orange-100: oklch(0.954 0.038 75.164);
+    --color-orange-200: oklch(0.901 0.076 70.697);
+    --color-orange-300: oklch(0.837 0.128 66.29);
+    --color-orange-400: oklch(0.75 0.183 55.934);
+    --color-orange-500: oklch(0.705 0.213 47.604);
+    --color-orange-600: oklch(0.646 0.222 41.116);
+    --color-orange-700: oklch(0.553 0.195 38.402);
+    --color-orange-800: oklch(0.47 0.157 37.304);
+    --color-orange-900: oklch(0.408 0.123 38.172);
+    --color-orange-950: oklch(0.266 0.079 36.259);
+    --color-amber-50: oklch(0.987 0.022 95.277);
+    --color-amber-100: oklch(0.962 0.059 95.617);
+    --color-amber-200: oklch(0.924 0.12 95.746);
+    --color-amber-300: oklch(0.879 0.169 91.605);
+    --color-amber-400: oklch(0.828 0.189 84.429);
+    --color-amber-500: oklch(0.769 0.188 70.08);
+    --color-amber-600: oklch(0.666 0.179 58.318);
+    --color-amber-700: oklch(0.555 0.163 48.998);
+    --color-amber-800: oklch(0.473 0.137 46.201);
+    --color-amber-900: oklch(0.414 0.112 45.904);
+    --color-amber-950: oklch(0.279 0.077 45.635);
+    --color-yellow-50: oklch(0.987 0.026 102.212);
+    --color-yellow-100: oklch(0.973 0.071 103.193);
+    --color-yellow-200: oklch(0.945 0.129 101.54);
+    --color-yellow-300: oklch(0.905 0.182 98.111);
+    --color-yellow-400: oklch(0.852 0.199 91.936);
+    --color-yellow-500: oklch(0.795 0.184 86.047);
+    --color-yellow-600: oklch(0.681 0.162 75.834);
+    --color-yellow-700: oklch(0.554 0.135 66.442);
+    --color-yellow-800: oklch(0.476 0.114 61.907);
+    --color-yellow-900: oklch(0.421 0.095 57.708);
+    --color-yellow-950: oklch(0.286 0.066 53.813);
+    --color-lime-50: oklch(0.986 0.031 120.757);
+    --color-lime-100: oklch(0.967 0.067 122.328);
+    --color-lime-200: oklch(0.938 0.127 124.321);
+    --color-lime-300: oklch(0.897 0.196 126.665);
+    --color-lime-400: oklch(0.841 0.238 128.85);
+    --color-lime-500: oklch(0.768 0.233 130.85);
+    --color-lime-600: oklch(0.648 0.2 131.684);
+    --color-lime-700: oklch(0.532 0.157 131.589);
+    --color-lime-800: oklch(0.453 0.124 130.933);
+    --color-lime-900: oklch(0.405 0.101 131.063);
+    --color-lime-950: oklch(0.274 0.072 132.109);
+    --color-green-50: oklch(0.982 0.018 155.826);
+    --color-green-100: oklch(0.962 0.044 156.743);
+    --color-green-200: oklch(0.925 0.084 155.995);
+    --color-green-300: oklch(0.871 0.15 154.449);
+    --color-green-400: oklch(0.792 0.209 151.711);
+    --color-green-500: oklch(0.723 0.219 149.579);
+    --color-green-600: oklch(0.627 0.194 149.214);
+    --color-green-700: oklch(0.527 0.154 150.069);
+    --color-green-800: oklch(0.448 0.119 151.328);
+    --color-green-900: oklch(0.393 0.095 152.535);
+    --color-green-950: oklch(0.266 0.065 152.934);
+    --color-emerald-50: oklch(0.979 0.021 166.113);
+    --color-emerald-100: oklch(0.95 0.052 163.051);
+    --color-emerald-200: oklch(0.905 0.093 164.15);
+    --color-emerald-300: oklch(0.845 0.143 164.978);
+    --color-emerald-400: oklch(0.765 0.177 163.223);
+    --color-emerald-500: oklch(0.696 0.17 162.48);
+    --color-emerald-600: oklch(0.596 0.145 163.225);
+    --color-emerald-700: oklch(0.508 0.118 165.612);
+    --color-emerald-800: oklch(0.432 0.095 166.913);
+    --color-emerald-900: oklch(0.378 0.077 168.94);
+    --color-emerald-950: oklch(0.262 0.051 172.552);
+    --color-teal-50: oklch(0.984 0.014 180.72);
+    --color-teal-100: oklch(0.953 0.051 180.801);
+    --color-teal-200: oklch(0.91 0.096 180.426);
+    --color-teal-300: oklch(0.855 0.138 181.071);
+    --color-teal-400: oklch(0.777 0.152 181.912);
+    --color-teal-500: oklch(0.704 0.14 182.503);
+    --color-teal-600: oklch(0.6 0.118 184.704);
+    --color-teal-700: oklch(0.511 0.096 186.391);
+    --color-teal-800: oklch(0.437 0.078 188.216);
+    --color-teal-900: oklch(0.386 0.063 188.416);
+    --color-teal-950: oklch(0.277 0.046 192.524);
+    --color-cyan-50: oklch(0.984 0.019 200.873);
+    --color-cyan-100: oklch(0.956 0.045 203.388);
+    --color-cyan-200: oklch(0.917 0.08 205.041);
+    --color-cyan-300: oklch(0.865 0.127 207.078);
+    --color-cyan-400: oklch(0.789 0.154 211.53);
+    --color-cyan-500: oklch(0.715 0.143 215.221);
+    --color-cyan-600: oklch(0.609 0.126 221.723);
+    --color-cyan-700: oklch(0.52 0.105 223.128);
+    --color-cyan-800: oklch(0.45 0.085 224.283);
+    --color-cyan-900: oklch(0.398 0.07 227.392);
+    --color-cyan-950: oklch(0.302 0.056 229.695);
+    --color-sky-50: oklch(0.977 0.013 236.62);
+    --color-sky-100: oklch(0.951 0.026 236.824);
+    --color-sky-200: oklch(0.901 0.058 230.902);
+    --color-sky-300: oklch(0.828 0.111 230.318);
+    --color-sky-400: oklch(0.746 0.16 232.661);
+    --color-sky-500: oklch(0.685 0.169 237.323);
+    --color-sky-600: oklch(0.588 0.158 241.966);
+    --color-sky-700: oklch(0.5 0.134 242.749);
+    --color-sky-800: oklch(0.443 0.11 240.79);
+    --color-sky-900: oklch(0.391 0.09 240.876);
+    --color-sky-950: oklch(0.293 0.066 243.157);
+    --color-blue-50: oklch(0.97 0.014 254.604);
+    --color-blue-100: oklch(0.932 0.032 255.585);
+    --color-blue-200: oklch(0.882 0.059 254.128);
+    --color-blue-300: oklch(0.809 0.105 251.813);
+    --color-blue-400: oklch(0.707 0.165 254.624);
+    --color-blue-500: oklch(0.623 0.214 259.815);
+    --color-blue-600: oklch(0.546 0.245 262.881);
+    --color-blue-700: oklch(0.488 0.243 264.376);
+    --color-blue-800: oklch(0.424 0.199 265.638);
+    --color-blue-900: oklch(0.379 0.146 265.522);
+    --color-blue-950: oklch(0.282 0.091 267.935);
+    --color-indigo-50: oklch(0.962 0.018 272.314);
+    --color-indigo-100: oklch(0.93 0.034 272.788);
+    --color-indigo-200: oklch(0.87 0.065 274.039);
+    --color-indigo-300: oklch(0.785 0.115 274.713);
+    --color-indigo-400: oklch(0.673 0.182 276.935);
+    --color-indigo-500: oklch(0.585 0.233 277.117);
+    --color-indigo-600: oklch(0.511 0.262 276.966);
+    --color-indigo-700: oklch(0.457 0.24 277.023);
+    --color-indigo-800: oklch(0.398 0.195 277.366);
+    --color-indigo-900: oklch(0.359 0.144 278.697);
+    --color-indigo-950: oklch(0.257 0.09 281.288);
+    --color-violet-50: oklch(0.969 0.016 293.756);
+    --color-violet-100: oklch(0.943 0.029 294.588);
+    --color-violet-200: oklch(0.894 0.057 293.283);
+    --color-violet-300: oklch(0.811 0.111 293.571);
+    --color-violet-400: oklch(0.702 0.183 293.541);
+    --color-violet-500: oklch(0.606 0.25 292.717);
+    --color-violet-600: oklch(0.541 0.281 293.009);
+    --color-violet-700: oklch(0.491 0.27 292.581);
+    --color-violet-800: oklch(0.432 0.232 292.759);
+    --color-violet-900: oklch(0.38 0.189 293.745);
+    --color-violet-950: oklch(0.283 0.141 291.089);
+    --color-purple-50: oklch(0.977 0.014 308.299);
+    --color-purple-100: oklch(0.946 0.033 307.174);
+    --color-purple-200: oklch(0.902 0.063 306.703);
+    --color-purple-300: oklch(0.827 0.119 306.383);
+    --color-purple-400: oklch(0.714 0.203 305.504);
+    --color-purple-500: oklch(0.627 0.265 303.9);
+    --color-purple-600: oklch(0.558 0.288 302.321);
+    --color-purple-700: oklch(0.496 0.265 301.924);
+    --color-purple-800: oklch(0.438 0.218 303.724);
+    --color-purple-900: oklch(0.381 0.176 304.987);
+    --color-purple-950: oklch(0.291 0.149 302.717);
+    --color-fuchsia-50: oklch(0.977 0.017 320.058);
+    --color-fuchsia-100: oklch(0.952 0.037 318.852);
+    --color-fuchsia-200: oklch(0.903 0.076 319.62);
+    --color-fuchsia-300: oklch(0.833 0.145 321.434);
+    --color-fuchsia-400: oklch(0.74 0.238 322.16);
+    --color-fuchsia-500: oklch(0.667 0.295 322.15);
+    --color-fuchsia-600: oklch(0.591 0.293 322.896);
+    --color-fuchsia-700: oklch(0.518 0.253 323.949);
+    --color-fuchsia-800: oklch(0.452 0.211 324.591);
+    --color-fuchsia-900: oklch(0.401 0.17 325.612);
+    --color-fuchsia-950: oklch(0.293 0.136 325.661);
+    --color-pink-50: oklch(0.971 0.014 343.198);
+    --color-pink-100: oklch(0.948 0.028 342.258);
+    --color-pink-200: oklch(0.899 0.061 343.231);
+    --color-pink-300: oklch(0.823 0.12 346.018);
+    --color-pink-400: oklch(0.718 0.202 349.761);
+    --color-pink-500: oklch(0.656 0.241 354.308);
+    --color-pink-600: oklch(0.592 0.249 0.584);
+    --color-pink-700: oklch(0.525 0.223 3.958);
+    --color-pink-800: oklch(0.459 0.187 3.815);
+    --color-pink-900: oklch(0.408 0.153 2.432);
+    --color-pink-950: oklch(0.284 0.109 3.907);
+    --color-rose-50: oklch(0.969 0.015 12.422);
+    --color-rose-100: oklch(0.941 0.03 12.58);
+    --color-rose-200: oklch(0.892 0.058 10.001);
+    --color-rose-300: oklch(0.81 0.117 11.638);
+    --color-rose-400: oklch(0.712 0.194 13.428);
+    --color-rose-500: oklch(0.645 0.246 16.439);
+    --color-rose-600: oklch(0.586 0.253 17.585);
+    --color-rose-700: oklch(0.514 0.222 16.935);
+    --color-rose-800: oklch(0.455 0.188 13.697);
+    --color-rose-900: oklch(0.41 0.159 10.272);
+    --color-rose-950: oklch(0.271 0.105 12.094);
+    --color-slate-50: oklch(0.984 0.003 247.858);
+    --color-slate-100: oklch(0.968 0.007 247.896);
+    --color-slate-200: oklch(0.929 0.013 255.508);
+    --color-slate-300: oklch(0.869 0.022 252.894);
+    --color-slate-400: oklch(0.704 0.04 256.788);
+    --color-slate-500: oklch(0.554 0.046 257.417);
+    --color-slate-600: oklch(0.446 0.043 257.281);
+    --color-slate-700: oklch(0.372 0.044 257.287);
+    --color-slate-800: oklch(0.279 0.041 260.031);
+    --color-slate-900: oklch(0.208 0.042 265.755);
+    --color-slate-950: oklch(0.129 0.042 264.695);
+    --color-gray-50: oklch(0.985 0.002 247.839);
+    --color-gray-100: oklch(0.967 0.003 264.542);
+    --color-gray-200: oklch(0.928 0.006 264.531);
+    --color-gray-300: oklch(0.872 0.01 258.338);
+    --color-gray-400: oklch(0.707 0.022 261.325);
+    --color-gray-500: oklch(0.551 0.027 264.364);
+    --color-gray-600: oklch(0.446 0.03 256.802);
+    --color-gray-700: oklch(0.373 0.034 259.733);
+    --color-gray-800: oklch(0.278 0.033 256.848);
+    --color-gray-900: oklch(0.21 0.034 264.665);
+    --color-gray-950: oklch(0.13 0.028 261.692);
+    --color-zinc-50: oklch(0.985 0 0);
+    --color-zinc-100: oklch(0.967 0.001 286.375);
+    --color-zinc-200: oklch(0.92 0.004 286.32);
+    --color-zinc-300: oklch(0.871 0.006 286.286);
+    --color-zinc-400: oklch(0.705 0.015 286.067);
+    --color-zinc-500: oklch(0.552 0.016 285.938);
+    --color-zinc-600: oklch(0.442 0.017 285.786);
+    --color-zinc-700: oklch(0.37 0.013 285.805);
+    --color-zinc-800: oklch(0.274 0.006 286.033);
+    --color-zinc-900: oklch(0.21 0.006 285.885);
+    --color-zinc-950: oklch(0.141 0.005 285.823);
+    --color-neutral-50: oklch(0.985 0 0);
+    --color-neutral-100: oklch(0.97 0 0);
+    --color-neutral-200: oklch(0.922 0 0);
+    --color-neutral-300: oklch(0.87 0 0);
+    --color-neutral-400: oklch(0.708 0 0);
+    --color-neutral-500: oklch(0.556 0 0);
+    --color-neutral-600: oklch(0.439 0 0);
+    --color-neutral-700: oklch(0.371 0 0);
+    --color-neutral-800: oklch(0.269 0 0);
+    --color-neutral-900: oklch(0.205 0 0);
+    --color-neutral-950: oklch(0.145 0 0);
+    --color-stone-50: oklch(0.985 0.001 106.423);
+    --color-stone-100: oklch(0.97 0.001 106.424);
+    --color-stone-200: oklch(0.923 0.003 48.717);
+    --color-stone-300: oklch(0.869 0.005 56.366);
+    --color-stone-400: oklch(0.709 0.01 56.259);
+    --color-stone-500: oklch(0.553 0.013 58.071);
+    --color-stone-600: oklch(0.444 0.011 73.639);
+    --color-stone-700: oklch(0.374 0.01 67.558);
+    --color-stone-800: oklch(0.268 0.007 34.298);
+    --color-stone-900: oklch(0.216 0.006 56.043);
+    --color-stone-950: oklch(0.147 0.004 49.25);
+    --color-black: #000;
+    --color-white: #fff;
+
+    --color-blue: oklch(0.4986 0.1985 260.96);
+  }
+
+  math { font-family: "NewComputerModernMath Book", math; }
+}
+
+style InlineCode {
+  font-family: "JetBrains Mono";
+}
+style SourceCode {
+  margin-top: 12px;
+  margin-bottom: 12px;
+  overflow-y: scroll;
+  font-family: "JetBrains Mono";
+  font-size: 1rem;
+}
+style Heading {
+  margin-top: 18px;
+}
+style List {
+  margin-top: 12px;
+  margin-bottom: 12px;
+}
+style Paragraph {
+  :not(:last-child) {
+    margin-bottom: 12px;
+  }
+}
+style Url {
+  color: var(--color-blue-800);
+  text-decoration: none;
+
+  :hover {
+    color: var(--color-blue-950);
+  }
+}
+
+component Parag: Paragraph {
+  <p>{children}</p>
+}
+component Ul: Paragraph {
+  <ul>{children}</ul>
+}
+
+
+style TextLg {
+  font-size: 1.125rem;
+  line-height: 1.75rem;
+}
+
+style LinkStyle {
+  color: var(--color-blue-800);
+  text-decoration: none;
+}
+
+style LinkStyleHover {
+  :hover {
+    color: var(--color-blue-950);
+  }
+}
+
+style ArticleLink {
+  color: var(--color-blue);
+
+  :hover {
+    color: var(--color-blue-900);
+  }
+}
+
+component ArticleTitle: TextLg, ArticleLink {
+  <a href={article.url} key={article.id}>{article.title}</a>
+}
+
+component ArticleDescription {
+  style {
+    margin: 0;
+    margin-top: 4px;
+    margin-bottom: 8px;
+    color: rgb(53, 53, 56);
+  }
+
+  <p>{article.description}</p>
+}
+
+component ArticleList {
+  <div>
+    {for article in allArticles}
+      <div>
+        <ArticleTitle article={article} />
+        <ArticleDescription article={article} />
+      </div>
+    {end}
+  </div>
+}
+
+component CategoryLink {
+  style {
+    all: unset;
+    cursor: pointer;
+    padding: 2px 8px;
+    border: 1px solid var(--color-black);
+    border-radius: 4px;
+    text-transform: uppercase;
+    font-size: 0.7rem;
+    font-weight: 500;
+
+    :hover {
+        background-color: var(--color-gray-800);
+        border-color: var(--color-gray-600);
+        color: var(--color-white);
+    }
+  }
+
+  <a href={tag.url}>{tag.name}</a>
+}
+
+component Tags {
+  style {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  <div style="margin-top: 4px">
+    {for tag in tags}
+      <CategoryLink tag={tag} />
+    {end}
+  </div>
+}
+
+component HomeUpdateItemDate {
+  style {
+    font-weight: 500;
+  }
+
+  <div>{children}</div>
+}
+
+component HomeUpdateItem {
+  style {
+    :not(:last-child) {
+      margin-bottom: 12px;
+    }
+  }
+
+  <div>
+    <HomeUpdateItemDate>
+      <a style="color: inherit; text-decoration: none;" href={update.url}>{update.date}</a>
+    </HomeUpdateItemDate>
+
+    <div style="margin: 0; padding: 0; line-height: 1.6rem;">{update.content}</div>
+
+    {for image in update.images}
+      <a href={image.url}>
+        <img style="object-fit: cover; object-position: 50% 50%; width: 100%; max-width: 800px" src={image.url} />
+      </a>
+    {end}
+
+    <Tags tags={update.tags} />
+  </div>
+}
+
+component HomeUpdateList {
+  style {
+    :not(:last-child) {
+      margin-bottom: 12px;
+    }
+  }
+
+  <div>
+    {for update in allUpdates}
+      <HomeUpdateItem update={update} />
+    {end}
+  </div>
+}
+
+style Text {
+  font-family: "Inter", sans-serif;
+  font-size: 0.9rem;
+}
+
+component Header {
+  style {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  <div>{children}</div>
+}
+
+component BlogTitleTitle {
+  style {
+    font-size: 1.4rem;
+    display: none;
+
+    @media (min-width: 800px) {
+      display: initial;
+    }
+  }
+
+  <div>{title}</div>
+}
+
+component BlogTitle {
+  style {
+    all: unset;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  <div>
+    <Favicon page={page} />
+    <BlogTitleTitle title={title} />
+  </div>
+}
+
+component BlogNavigation {
+  style {
+    font-size: 1rem;
+    display: flex;
+    gap: 8px;
+  }
+
+  <div>{children}</div>
+}
+
+style PageMargin {
+  margin-left: 14px;
+  margin-right: 14px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+
+  @media (min-width: 800px) {
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+component FaviconImage {
+  style {
+    height: 21px;
+    width: 21px;
+  }
+
+  <svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 100 100"><rect width="100" height="100" rx="20" fill="#0c1400"></rect><path d="M28.16 36.83L16.48 36.83L16.48 31.09L46.65 31.09L46.65 36.83L34.96 36.83L34.96 68.91L28.16 68.91L28.16 36.83ZM76.71 31.09L83.52 31.09L83.52 68.91L77.43 68.91L59.61 43.15L59.30 43.15L59.30 68.91L52.45 68.91L52.45 31.09L58.58 31.09L76.38 56.87L76.71 56.87L76.71 31.09Z" fill="#fff"></path></svg>
+}
+
+component Favicon {
+  style {
+    all: unset;
+  }
+
+  {if page == "main"}
+    <FaviconImage />
+  {else}
+    <a style="cursor: pointer" href="/">
+      <FaviconImage />
+    </a>
+  {end}
+}
+
+component Footer {
+  style {
+    margin-top: 20px;
+    color: var(--color-gray-400);
+  }
+
+  <div>{children}</div>
+}
+
+component RustIcon {
+    <svg width="100%" height="100%" viewBox="0 0 1200 800" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linejoin:round;stroke-miterlimit:1.41421;">
+    <g id="Layer-1" serif:id="Layer 1">
+        <g transform="matrix(1,0,0,1,597.344,637.02)">
+            <path d="M0,-279.559C-121.238,-279.559 -231.39,-264.983 -312.939,-241.23L-312.939,-38.329C-231.39,-14.575 -121.238,0 0,0C138.76,0 262.987,-19.092 346.431,-49.186L346.431,-230.37C262.987,-260.465 138.76,-279.559 0,-279.559" style="fill:rgb(165,43,0);fill-rule:nonzero;"/>
+        </g>
+        <g transform="matrix(1,0,0,1,1068.75,575.642)">
+            <path d="M0,-53.32L-14.211,-82.761C-14.138,-83.879 -14.08,-84.998 -14.08,-86.121C-14.08,-119.496 -48.786,-150.256 -107.177,-174.883L-107.177,2.643C-79.932,-8.849 -57.829,-21.674 -42.021,-35.482C-46.673,-16.775 -62.585,21.071 -75.271,47.686C-96.121,85.752 -103.671,118.889 -102.703,120.53C-102.086,121.563 -94.973,110.59 -84.484,92.809C-60.074,58.028 -13.82,-8.373 -4.575,-25.287C5.897,-44.461 0,-53.32 0,-53.32" style="fill:rgb(165,43,0);fill-rule:nonzero;"/>
+        </g>
+        <g transform="matrix(1,0,0,1,149.064,591.421)">
+            <path d="M0,-99.954C0,-93.526 1.293,-87.194 3.788,-80.985L-4.723,-65.835C-4.723,-65.835 -11.541,-56.989 0.465,-38.327C11.055,-21.872 64.1,42.54 92.097,76.271C104.123,93.564 112.276,104.216 112.99,103.187C114.114,101.554 105.514,69.087 81.631,32.046C70.487,12.151 57.177,-14.206 49.189,-33.675C71.492,-19.559 100.672,-6.755 135.341,4.265L135.341,-204.17C51.797,-177.622 0,-140.737 0,-99.954" style="fill:rgb(165,43,0);fill-rule:nonzero;"/>
+        </g>
+        <g transform="matrix(-65.8097,-752.207,-752.207,65.8097,621.707,796.312)">
+            <path d="M0.991,-0.034L0.933,0.008C0.933,0.014 0.933,0.02 0.933,0.026L0.99,0.069C0.996,0.073 0.999,0.08 0.998,0.087C0.997,0.094 0.992,0.1 0.986,0.103L0.92,0.133C0.919,0.139 0.918,0.145 0.916,0.15L0.964,0.203C0.968,0.208 0.97,0.216 0.968,0.222C0.965,0.229 0.96,0.234 0.953,0.236L0.882,0.254C0.88,0.259 0.877,0.264 0.875,0.27L0.91,0.33C0.914,0.336 0.914,0.344 0.91,0.35C0.907,0.356 0.9,0.36 0.893,0.361L0.82,0.365C0.817,0.369 0.813,0.374 0.81,0.379L0.832,0.445C0.835,0.452 0.833,0.459 0.828,0.465C0.824,0.47 0.816,0.473 0.809,0.472L0.737,0.462C0.733,0.466 0.729,0.47 0.724,0.474L0.733,0.544C0.734,0.551 0.731,0.558 0.725,0.562C0.719,0.566 0.711,0.568 0.704,0.565L0.636,0.542C0.631,0.546 0.626,0.549 0.621,0.552L0.615,0.621C0.615,0.629 0.61,0.635 0.604,0.638C0.597,0.641 0.589,0.641 0.583,0.638L0.521,0.602C0.52,0.603 0.519,0.603 0.518,0.603L0.406,0.729C0.406,0.729 0.394,0.747 0.359,0.725C0.329,0.705 0.206,0.599 0.141,0.543C0.109,0.52 0.089,0.504 0.09,0.502C0.093,0.499 0.149,0.509 0.217,0.554C0.278,0.588 0.371,0.631 0.38,0.619C0.38,0.619 0.396,0.604 0.406,0.575C0.406,0.575 0.406,0.575 0.406,0.575C0.407,0.576 0.407,0.576 0.406,0.575C0.406,0.575 0.091,0.024 0.305,-0.531C0.311,-0.593 0.275,-0.627 0.275,-0.627C0.266,-0.639 0.178,-0.598 0.12,-0.566C0.055,-0.523 0.002,-0.513 0,-0.516C-0.001,-0.518 0.018,-0.533 0.049,-0.555C0.11,-0.608 0.227,-0.707 0.256,-0.726C0.289,-0.748 0.301,-0.73 0.301,-0.73L0.402,-0.615C0.406,-0.614 0.41,-0.613 0.415,-0.613L0.47,-0.658C0.475,-0.663 0.483,-0.664 0.49,-0.662C0.497,-0.66 0.502,-0.655 0.504,-0.648L0.522,-0.58C0.527,-0.578 0.533,-0.576 0.538,-0.574L0.602,-0.608C0.608,-0.612 0.616,-0.612 0.623,-0.608C0.629,-0.605 0.633,-0.599 0.633,-0.592L0.637,-0.522C0.642,-0.519 0.647,-0.515 0.652,-0.512L0.721,-0.534C0.728,-0.536 0.736,-0.535 0.741,-0.531C0.747,-0.526 0.75,-0.519 0.749,-0.512L0.738,-0.443C0.742,-0.439 0.746,-0.435 0.751,-0.431L0.823,-0.439C0.83,-0.44 0.837,-0.437 0.842,-0.432C0.847,-0.426 0.848,-0.419 0.845,-0.412L0.821,-0.347C0.824,-0.342 0.828,-0.337 0.831,-0.332L0.903,-0.327C0.911,-0.327 0.917,-0.322 0.92,-0.316C0.924,-0.31 0.924,-0.302 0.92,-0.296L0.883,-0.236C0.885,-0.231 0.887,-0.226 0.889,-0.22L0.959,-0.202C0.966,-0.2 0.972,-0.195 0.974,-0.188C0.976,-0.181 0.974,-0.174 0.969,-0.168L0.92,-0.116C0.921,-0.111 0.923,-0.105 0.924,-0.099L0.988,-0.068C0.995,-0.065 0.999,-0.059 1,-0.052C1.001,-0.045 0.997,-0.038 0.991,-0.034ZM0.406,0.575C0.406,0.575 0.406,0.575 0.406,0.575C0.406,0.575 0.406,0.575 0.406,0.575Z" style="fill:url(#_Linear1);fill-rule:nonzero;"/>
+        </g>
+        <g transform="matrix(1,0,0,1,450.328,483.629)">
+            <path d="M0,167.33C-1.664,165.91 -2.536,165.068 -2.536,165.068L140.006,153.391C23.733,0 -69.418,122.193 -79.333,135.855L-79.333,167.33L0,167.33Z" style="fill-rule:nonzero;"/>
+        </g>
+        <g transform="matrix(1,0,0,1,747.12,477.333)">
+            <path d="M0,171.974C1.663,170.554 2.536,169.71 2.536,169.71L-134.448,159.687C-18.12,0 69.421,126.835 79.335,140.497L79.335,171.974L0,171.974Z" style="fill-rule:nonzero;"/>
+        </g>
+        <g transform="matrix(-1.53e-05,-267.211,-267.211,1.53e-05,809.465,764.23)">
+            <path d="M1,-0.586C1,-0.586 0.768,-0.528 0.524,-0.165L0.5,-0.064C0.5,-0.064 1.1,0.265 0.424,0.731C0.424,0.731 0.508,0.586 0.405,0.197C0.405,0.197 0.131,0.376 0.14,0.736C0.14,0.736 -0.275,0.391 0.324,-0.135C0.324,-0.135 0.539,-0.691 1,-0.736L1,-0.586Z" style="fill:url(#_Linear2);fill-rule:nonzero;"/>
+        </g>
+        <g transform="matrix(1,0,0,1,677.392,509.61)">
+            <path d="M0,-92.063C0,-92.063 43.486,-139.678 86.974,-92.063C86.974,-92.063 121.144,-28.571 86.974,3.171C86.974,3.171 31.062,47.615 0,3.171C0,3.171 -37.275,-31.75 0,-92.063" style="fill-rule:nonzero;"/>
+        </g>
+        <g transform="matrix(1,0,0,1,727.738,435.209)">
+            <path d="M0,0.002C0,18.543 -10.93,33.574 -24.408,33.574C-37.885,33.574 -48.814,18.543 -48.814,0.002C-48.814,-18.539 -37.885,-33.572 -24.408,-33.572C-10.93,-33.572 0,-18.539 0,0.002" style="fill:white;fill-rule:nonzero;"/>
+        </g>
+        <g transform="matrix(1,0,0,1,483.3,502.984)">
+            <path d="M0,-98.439C0,-98.439 74.596,-131.467 94.956,-57.748C94.956,-57.748 116.283,28.178 33.697,33.028C33.697,33.028 -71.613,12.745 0,-98.439" style="fill-rule:nonzero;"/>
+        </g>
+        <g transform="matrix(1,0,0,1,520.766,436.428)">
+            <path d="M0,0C0,19.119 -11.27,34.627 -25.173,34.627C-39.071,34.627 -50.344,19.119 -50.344,0C-50.344,-19.124 -39.071,-34.627 -25.173,-34.627C-11.27,-34.627 0,-19.124 0,0" style="fill:white;fill-rule:nonzero;"/>
+        </g>
+        <g transform="matrix(-1.53e-05,-239.021,-239.021,1.53e-05,402.161,775.388)">
+            <path d="M0.367,0.129C-0.364,-0.441 0.223,-0.711 0.223,-0.711C0.259,-0.391 0.472,-0.164 0.472,-0.164C0.521,-0.548 0.525,-0.77 0.525,-0.77C1.203,-0.256 0.589,0.161 0.589,0.161C0.627,0.265 0.772,0.372 0.906,0.451L1,0.77C0.376,0.403 0.367,0.129 0.367,0.129Z" style="fill:url(#_Linear3);fill-rule:nonzero;"/>
+        </g>
+    </g>
+    <defs>
+        <linearGradient id="_Linear1" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1,0,1.38778e-17,-1,0,-0.000650515)"><stop offset="0" style="stop-color:rgb(247,76,0);stop-opacity:1"/><stop offset="0.33" style="stop-color:rgb(247,76,0);stop-opacity:1"/><stop offset="1" style="stop-color:rgb(244,150,0);stop-opacity:1"/></linearGradient>
+        <linearGradient id="_Linear2" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1,0,0,-1,0,1.23438e-06)"><stop offset="0" style="stop-color:rgb(204,58,0);stop-opacity:1"/><stop offset="0.15" style="stop-color:rgb(204,58,0);stop-opacity:1"/><stop offset="0.74" style="stop-color:rgb(247,76,0);stop-opacity:1"/><stop offset="1" style="stop-color:rgb(247,76,0);stop-opacity:1"/></linearGradient>
+        <linearGradient id="_Linear3" x1="0" y1="0" x2="1" y2="0" gradientUnits="userSpaceOnUse" gradientTransform="matrix(1,1.32349e-23,1.32349e-23,-1,0,-9.1568e-07)"><stop offset="0" style="stop-color:rgb(204,58,0);stop-opacity:1"/><stop offset="0.15" style="stop-color:rgb(204,58,0);stop-opacity:1"/><stop offset="0.74" style="stop-color:rgb(247,76,0);stop-opacity:1"/><stop offset="1" style="stop-color:rgb(247,76,0);stop-opacity:1"/></linearGradient>
+    </defs>
+</svg>
+}
+
+component BlogTitleMobile {
+  style {
+    font-size: 1.4rem;
+    display: initial;
+
+    @media (min-width: 800px) {
+      display: none;
+    }
+  }
+
+  <div>{title}</div>
+}
+
+component NavigationLink {
+  {if page == current}
+    <ActiveLink>{children}</ActiveLink>
+  {else}
+    <Link href={url}>
+      {children}
+    </Link>
+  {end}
+}
+
+component Page: Text, PageMargin {
+  <div>
+    <Header>
+        <BlogTitle page={page} title={title} />
+
+        <BlogNavigation>
+            <NavigationLink page="main" url="/" current={page}>home</NavigationLink>
+            <NavigationLink page="articles" url="/articles" current={page}>articles</NavigationLink>
+            <NavigationLink page="posts" url="/posts" current={page}>posts</NavigationLink>
+            <NavigationLink page="about" url="/about" current={page}>about</NavigationLink>
+        </BlogNavigation>
+    </Header>
+
+    <BlogTitleMobile title={title} />
+
+    <div>{children}</div>
+
+    <Footer>
+      Powered by Rust <span style="display: inline-block; max-width: 24px;"><RustIcon/></span>,
+      <a style="color: inherit; text-decoration: none" href="https://docs.rs/hyper/latest/hyper/">Hyper</a>,
+      <a style="color: inherit; text-decoration: none" href="https://docs.rs/markdown/latest/markdown/">markdown-rs</a>,
+      <a style="color: inherit; text-decoration: none" href="https://docs.rs/inkjet/latest/inkjet/">inkjet</a> and
+      <a style="color: inherit; text-decoration: none" href="https://docs.rs/math-core/latest/math_core/">math-core</a>.
+    </Footer>
+  </div>
+}
+
+component PageTitle {
+  style {
+    margin: 0;
+    margin-top: 8px;
+    color: var(--color-blue-800);
+    font-size: 1.6rem;
+    line-height: 2.6rem;
+  }
+
+  <h1>{children}</h1>
+}
+
+component PostLink {
+  style {
+    margin: 0;
+    color: var(--color-blue);
+    font-size: 1.2rem;
+    text-decoration: none;
+  }
+
+  <a href={url}>{children}</a>
+}
+
+component Bio {
+  style {
+    font-size: 1rem;
+    margin-bottom: 8px;
+    line-height: 1.6rem;
+  }
+
+  <div>{children}</div>
+}
+
+component H2 {
+  style {
+    margin-top: 14px;
+    margin-bottom: 4px;
+    font-weight: 500;
+
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  <h2>{children}</h2>
+}
+
+component SocialLinks {
+  style {
+    padding: 0;
+
+    @media (min-width: 576px) {
+      display: flex;
+      gap: 8px;
+    }
+  }
+
+  <ul>{children}</ul>
+}
+
+component Button {
+  style {
+    text-decoration: none;
+
+    font-style: normal;
+    font-size: 0.75rem;
+    font-weight: 500;
+
+    line-height: 1em;
+
+    padding-top: 0.3em;
+    padding-bottom: 0.3em;
+    padding-left: 0.3em;
+    padding-right: 0.3em;
+
+    display: inline-block;
+
+    color: var(--color);
+    border: 1px solid var(--color-black);
+    border-radius: 4px;
+
+    text-transform: uppercase;
+
+    :hover {
+      color: var(--color-white);
+      border-color: var(--color-gray-600);
+      background-color: var(--color-gray-800);
+    }
+  }
+
+  <a href={url}>all</a>
+}
+
+component Greeting {
+  style {
+    margin-top: 6px;
+
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  <h1>{children}</h1>
+}
+
+component ActiveLink: LinkStyle {
+  style {
+    cursor: default;
+    text-decoration: underline dotted;
+  }
+
+  <span>{children}</span>
+}
+
+component Link: LinkStyle, LinkStyleHover {
+  <a href={href}>{children}</a>
+}
+
+component SocialLinkInner {
+  style {
+    color: var(--color-blue-800);
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    text-decoration: none;
+
+    :hover {
+      color: var(--color-blue-950);
+    }
+  }
+
+  <a href={href}>{children}</a>
+}
+
+component SocialLink {
+  style {
+    display: flex;
+
+    @media (min-width: 576px) {
+      :not(:last-child)::after {
+        color: var(--color-blue-800);
+        content: "•";
+        margin-left: 6px;
+      }
+    }
+  }
+
+  <li><SocialLinkInner href={href}>{children}</SocialLinkInner></li>
+}
+
+component RssIcon {
+  style {
+     color: var(--color-orange-500);
+  }
+
+    <svg width="20px" height="20px" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+        <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+            <g transform="translate(-65.000000, -3644.000000)" fill="currentColor">
+                <g transform="translate(56.000000, 160.000000)">
+                    <path d="M9.01405871,3491.9522 L9.01405871,3492.95455 C9.01405871,3493.50785 9.46393743,3493.9569 10.0182523,3493.9569 L11.0224458,3493.9569 C11.0224458,3492.8493 10.1236926,3491.9522 9.01405871,3491.9522 M9,3487.94279 L9,3489.94749 C11.215251,3489.94749 13.0167743,3491.9953 13.0167743,3494 L15.0251614,3494 C15.0251614,3490.99295 12.3278975,3487.94279 9,3487.94279 M18.9937344,3492.85231 C19.0600112,3493.45071 18.592057,3494 17.9895408,3494 L17.0476073,3494 C17.0476073,3489.99059 13.0167743,3485.93809 9,3485.93809 L9,3484.99788 C9,3484.39647 9.53623937,3483.9394 10.1347387,3484.00656 C14.7801382,3484.52477 18.4745663,3488.21643 18.9937344,3492.85231">
+                    </path>
+                </g>
+            </g>
+        </g>
+    </svg>
+}
+
+component SocialLinkGitHub {
+  <SocialLink href="https://github.com/tindzk"><svg style="display: inline" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M7.49933 0.25C3.49635 0.25 0.25 3.49593 0.25 7.50024C0.25 10.703 2.32715 13.4206 5.2081 14.3797C5.57084 14.446 5.70302 14.2222 5.70302 14.0299C5.70302 13.8576 5.69679 13.4019 5.69323 12.797C3.67661 13.235 3.25112 11.825 3.25112 11.825C2.92132 10.9874 2.44599 10.7644 2.44599 10.7644C1.78773 10.3149 2.49584 10.3238 2.49584 10.3238C3.22353 10.375 3.60629 11.0711 3.60629 11.0711C4.25298 12.1788 5.30335 11.8588 5.71638 11.6732C5.78225 11.205 5.96962 10.8854 6.17658 10.7043C4.56675 10.5209 2.87415 9.89918 2.87415 7.12104C2.87415 6.32925 3.15677 5.68257 3.62053 5.17563C3.54576 4.99226 3.29697 4.25521 3.69174 3.25691C3.69174 3.25691 4.30015 3.06196 5.68522 3.99973C6.26337 3.83906 6.8838 3.75895 7.50022 3.75583C8.1162 3.75895 8.73619 3.83906 9.31523 3.99973C10.6994 3.06196 11.3069 3.25691 11.3069 3.25691C11.7026 4.25521 11.4538 4.99226 11.3795 5.17563C11.8441 5.68257 12.1245 6.32925 12.1245 7.12104C12.1245 9.9063 10.4292 10.5192 8.81452 10.6985C9.07444 10.9224 9.30633 11.3648 9.30633 12.0413C9.30633 13.0102 9.29742 13.7922 9.29742 14.0299C9.29742 14.2239 9.42828 14.4496 9.79591 14.3788C12.6746 13.4179 14.75 10.7025 14.75 7.50024C14.75 3.49593 11.5036 0.25 7.49933 0.25Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg> GitHub</SocialLink>
+}
+
+component SocialLinkStackOverflow {
+  <SocialLink href="https://stackoverflow.com/users/13300239/tim-nieradzik"><svg style="display: inline" width="15" height="15" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><rect width="24" height="24" fill="none"/><path d="M17.36,20.2V14.82h1.79V22H3V14.82H4.8V20.2H17.36M6.77,14.32l.37-1.76,8.79,1.85-.37,1.76L6.77,14.32m1.16-4.21L8.69,8.5l8.14,3.78-.76,1.62L7.93,10.11m2.26-4,1.15-1.38,6.9,5.76-1.15,1.37-6.9-5.75m4.45-4.25L20,9.08l-1.44,1.07L13.2,2.94l1.44-1.07m-8,16.54v-1.8h9v1.8Z" fill="currentColor"/></svg> StackOverflow</SocialLink>
+}
+
+component SocialLinkLinkedIn {
+  <SocialLink href="https://linkedin.com/in/timnieradzik"><svg style="display: inline" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M2 1C1.44772 1 1 1.44772 1 2V13C1 13.5523 1.44772 14 2 14H13C13.5523 14 14 13.5523 14 13V2C14 1.44772 13.5523 1 13 1H2ZM3.05 6H4.95V12H3.05V6ZM5.075 4.005C5.075 4.59871 4.59371 5.08 4 5.08C3.4063 5.08 2.925 4.59871 2.925 4.005C2.925 3.41129 3.4063 2.93 4 2.93C4.59371 2.93 5.075 3.41129 5.075 4.005ZM12 8.35713C12 6.55208 10.8334 5.85033 9.67449 5.85033C9.29502 5.83163 8.91721 5.91119 8.57874 6.08107C8.32172 6.21007 8.05265 6.50523 7.84516 7.01853H7.79179V6.00044H6V12.0047H7.90616V8.8112C7.8786 8.48413 7.98327 8.06142 8.19741 7.80987C8.41156 7.55832 8.71789 7.49825 8.95015 7.46774H9.02258C9.62874 7.46774 10.0786 7.84301 10.0786 8.78868V12.0047H11.9847L12 8.35713Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg> LinkedIn</SocialLink>
+}
+
+component SocialLinkEmail {
+  <SocialLink href="mailto:tim@nieradzik.me"><svg style="display: inline" width="15" height="15" viewBox="0 0 15 15" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M1 2C0.447715 2 0 2.44772 0 3V12C0 12.5523 0.447715 13 1 13H14C14.5523 13 15 12.5523 15 12V3C15 2.44772 14.5523 2 14 2H1ZM1 3L14 3V3.92494C13.9174 3.92486 13.8338 3.94751 13.7589 3.99505L7.5 7.96703L1.24112 3.99505C1.16621 3.94751 1.0826 3.92486 1 3.92494V3ZM1 4.90797V12H14V4.90797L7.74112 8.87995C7.59394 8.97335 7.40606 8.97335 7.25888 8.87995L1 4.90797Z" fill="currentColor" fill-rule="evenodd" clip-rule="evenodd"></path></svg> Email</SocialLink>
+}
+
+component AllSocialLinks {
+    <SocialLinks>
+        <SocialLinkGitHub />
+        <SocialLinkStackOverflow />
+        <SocialLinkLinkedIn />
+        <SocialLinkEmail />
+    </SocialLinks>
+}
+
+component Home {
+  <Page page="main" title="">
+    <Greeting>
+        Hi, I'm Tim.
+
+        <a title="Atom feed" href="/feed">
+          <RssIcon />
+        </a>
+    </Greeting>
+
+    <Bio>
+        I am a software developer based in Famagusta, Cyprus. At the moment, I am building <Link href="https://peaklingo.com/">Peaklingo</Link>, a language app for advanced learners. My main languages are Rust, TypeScript and Python.
+    </Bio>
+
+    <AllSocialLinks />
+
+    <H2>Latest articles <Button url="/articles" /></H2>
+    <ArticleList allArticles={articles} />
+
+    <H2>Latest updates <Button url="/posts" /></H2>
+    <HomeUpdateList allUpdates={updates} />
+  </Page>
+}
+
+component Category {
+  style {
+    all: unset;
+    cursor: pointer;
+    color: rgba(53, 53, 56);
+    text-decoration: none;
+
+    :hover {
+      color: var(--color-blue-900);
+    }
+  }
+
+  <a href={category.url}>{category.name}</a>
+}
+
+component CategoryActive {
+  style {
+    color: var(--color-blue-700);
+  }
+
+  <span>{category.name}</span>
+}
+
+component CategoryBox {
+  style {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 4px;
+    margin-bottom: 12px;
+    line-height: 1.1;
+  }
+
+  <div>
+    {for category in categories}
+      {if active == category.id}
+        <CategoryActive category={category} />
+      {else}
+        <Category category={category} />
+      {end}
+    {end}
+  </div>
+}
+
+component ArticleListing {
+  <Page page="articles" title="Articles">
+    <CategoryBox categories={categories} active={active_category} />
+    <ArticleList allArticles={articles} />
+  </Page>
+}
+
+component UpdateListItem {
+  style {
+    :not(:last-child) {
+      margin-bottom: 20px;
+    }
+  }
+
+  <div>
+    <PostLink url={update.url}>{update.date}</PostLink>
+    <div style="margin: 0; padding: 0; line-height: 1.8rem; font-size: 1.1rem">{update.content}</div>
+
+    {for image in update.images}
+      <a href={image.url}>
+        <img style="object-fit: cover; object-position: 50% 50%; width: 100%; max-width: 800px" src={image.url} />
+      </a>
+    {end}
+
+    <Tags tags={update.tags} />
+  </div>
+}
+
+component UpdateListDetail {
+  style {
+    margin-top: 16px;
+  }
+
+  <div>
+    {for update in allUpdates}
+      <UpdateListItem update={update} />
+    {end}
+  </div>
+}
+
+component PostPage {
+  <Page page="post" title="">
+    <PostTitle>{post.published}</PostTitle>
+
+    <ArticleText>{post.content}</ArticleText>
+
+    {for image in post.images}
+    <a href={image.url}>
+        <img style="object-fit: cover; object-position: 50% 50%; width: 100%; max-width: 800px" src={image.url} />
+    </a>
+    {end}
+
+    <Tags tags={post.tags} />
+  </Page>
+}
+
+component PostListing {
+  <Page page="posts" title="Posts">
+    <CategoryBox categories={categories} active={active_category} />
+    <UpdateListDetail allUpdates={posts} />
+  </Page>
+}
+
+component ArticleText {
+  style {
+    font-size: 1.1rem;
+    line-height: 2rem;
+  }
+
+  <div>{children}</div>
+}
+
+component ArticleMeta {
+  style {
+    margin-top: 20px;
+    margin-bottom: 10px;
+    font-size: 1rem;
+  }
+
+  <div>{children}</div>
+}
+
+component Feedback {
+  style {
+    margin-top: 12px;
+    font-size: 1rem;
+  }
+
+  <div>{children}</div>
+}
+
+component ArticleCategories {
+  style {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  <div>
+    {for tag in categories}
+      <CategoryLink tag={tag} />
+    {end}
+  </div>
+}
+
+component PostTitle {
+  style {
+    margin-top: 8px;
+    color: var(--color-blue);
+    font-size: 1.4rem;
+  }
+
+  <div>{children}</div>
+}
+
+component ArticlePage: Text {
+  <Page page="article" title="">
+    <PageTitle>{article.title}</PageTitle>
+    <ArticleText>{article.text}</ArticleText>
+
+    <ArticleMeta>
+      <div><strong style="font-weight: 500">Published:</strong> {article.published}</div>
+
+      {if article.updated != null}
+        <div><strong style="font-weight: 500">Last updated:</strong> {article.updated}</div>
+      {end}
+    </ArticleMeta>
+
+    <ArticleCategories categories={article.categories} />
+
+    <Feedback>Got feedback? Feel free to send me an <a style="color: var(--color-blue)" href="mailto:tim@nieradzik.me">email</a>.</Feedback>
+  </Page>
+}
+
+component SectionHeading {
+  style {
+   font-size: 1.2rem;
+   font-weight: 500;
+   margin-top: 12px;
+  }
+
+  <div>{children}</div>
+}
+
+component AboutText {
+  style {
+    margin-top: 8px;
+    font-size: 1rem;
+    line-height: 1.7rem;
+
+    @media (min-width: 800px) {
+      margin-top: 16px;
+      font-size: 1.1rem;
+      line-height: 2rem;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+  }
+
+  <div>
+    <Parag>
+      Hello. My name is Tim. I am a former Scala developer. These days, I spend most of my time writing Rust, TypeScript and Python.
+    </Parag>
+
+    <Parag>
+      I am currently building <Link href="https://peaklingo.com">Peaklingo</Link>, a language app for advanced learners. I like distributed systems and have developed a low-footprint service orchestrator that powers this website.
+    </Parag>
+
+    <span>
+      My current setup is:
+    </span>
+
+    <Ul>
+      <li>Asahi Linux on MacBook Pro M2</li>
+      <li>Sway tiling manager with Waybar</li>
+      <li>Zed IDE with Vim key bindings</li>
+      <li>Nushell</li>
+    </Ul>
+
+    <Parag>
+      Here is a screenshot:
+      <a href={screenshot_url}>
+        <img style="object-fit: cover; object-position: 50% 50%; width: 100%; max-width: 800px" src={screenshot_url} />
+      </a>
+    </Parag>
+
+    <Parag>For focused reading, I prefer E Ink devices. My Onyx Palma has become the go-to device for books, articles and the occasional research paper.</Parag>
+
+    <Parag>I include outdoor activity and sports into my daily schedule. I like going on long walks and hikes, and am a member of the local running group that trains twice a week. I have completed two half-marathons in Wrocław, Poland and Çanakkale, Turkey.</Parag>
+
+    <Parag>I have lived for extended periods (1+ year) in Germany, UK, Croatia, Ukraine, Poland, Turkey and now reside in Cyprus.</Parag>
+
+    <SectionHeading>Developer platforms</SectionHeading>
+    <SocialLinks>
+        <SocialLinkGitHub />
+        <SocialLinkStackOverflow />
+    </SocialLinks>
+
+    <SectionHeading>Contact me</SectionHeading>
+    <SocialLinks>
+        <SocialLinkLinkedIn />
+        <SocialLinkEmail />
+    </SocialLinks>
+  </div>
+}
+
+component AboutPage: Text {
+  <Page page="about" title="About me">
+    <AboutText screenshot_url={screenshot_url} />
+  </Page>
+}
