@@ -1,0 +1,9 @@
+{
+  "CORSRules": [
+    {
+      "AllowedOrigins": ["https://nieradzik.me", "http://localhost:7878"],
+      "AllowedHeaders": ["*"],
+      "AllowedMethods": ["GET", "HEAD"]
+    }
+  ]
+}
