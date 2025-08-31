@@ -73,4 +73,12 @@ for $file in $files_to_copy {
     $cache = ($cache | where target != $file.target)
     $cache = ($cache | append { target: $file.target, hash: $current_hash })
     $cache | save --force $cache_path
+
+    if ($file.source == "articles.tar.gz") {
+        print "Invalidate article cache"
+        http get https://nieradzik.me/reload/articles
+    } else if ($file.source == "posts.tar.gz") {
+        print "Invalidate post cache"
+        http get https://nieradzik.me/reload/posts
+    }
 }
