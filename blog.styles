@@ -928,7 +928,7 @@ component Home {
     </Greeting>
 
     <Bio>
-        I am a software developer based in Famagusta, Cyprus. At the moment, I am building <Link href="https://peaklingo.com/">Peaklingo</Link>, a language app for advanced learners. My main languages are Rust, TypeScript and Python.
+        I am a software developer based in Famagusta, Cyprus. My main languages are Rust, TypeScript and Python.
     </Bio>
 
     <AllSocialLinks />
@@ -1151,7 +1151,7 @@ component AboutText {
     </Parag>
 
     <Parag>
-      I am currently building <Link href="https://peaklingo.com">Peaklingo</Link>, a language app for advanced learners. I like distributed systems and have developed a low-footprint service orchestrator that powers this website.
+      I like distributed systems and have developed a low-footprint service orchestrator that powers this website.
     </Parag>
 
     <span>
