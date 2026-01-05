@@ -1106,10 +1106,10 @@ component ArticlePage: Text {
     <ArticleText>{article.text}</ArticleText>
 
     <ArticleMeta>
-      <div><strong style="font-weight: 500">Published:</strong> {article.published}</div>
+      <div><strong style="font-weight: 500">Published: </strong>{article.published}</div>
 
       {if article.updated != null}
-        <div><strong style="font-weight: 500">Last updated:</strong> {article.updated}</div>
+        <div><strong style="font-weight: 500">Last updated: </strong>{article.updated}</div>
       {end}
     </ArticleMeta>
 
