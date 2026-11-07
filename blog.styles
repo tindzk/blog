@@ -152,12 +152,18 @@ style Paragraph {
     margin-bottom: 12px;
   }
 }
-style Url {
-  color: var(--page-link);
-  text-decoration: none;
+style ContentLink {
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, currentColor 45%, transparent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
 
   :hover {
-    color: var(--page-link-hover);
+    text-decoration-color: currentColor;
+  }
+
+  :focus-visible {
+    text-decoration-color: currentColor;
   }
 }
 
