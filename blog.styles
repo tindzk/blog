@@ -4,7 +4,43 @@ global style {
    * From https://www.joshwcomeau.com/css/custom-css-reset/
    */
 
-  @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap');
+  /* Inter and JetBrains Mono come from Google Fonts at revision
+   * 86aced91de05cd4f96a06838124cca45be337b2b:
+   * https://github.com/google/fonts/tree/86aced91de05cd4f96a06838124cca45be337b2b/ofl
+   * scripts/vendor-fonts.py converts the upstream TTF files to these WOFF2 files.
+   * Source details and licences are in static/FONTS.md and static/*-OFL.txt.
+   */
+  @font-face {
+    font-family: 'Inter';
+    font-style: normal;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/Inter-normal-047c92f6e221.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'Inter';
+    font-style: italic;
+    font-weight: 100 900;
+    font-display: swap;
+    src: url('/fonts/Inter-italic-c17757842824.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'JetBrains Mono';
+    font-style: normal;
+    font-weight: 100 800;
+    font-display: swap;
+    src: url('/fonts/JetBrainsMono-normal-aa310be8b717.woff2') format('woff2');
+  }
+
+  @font-face {
+    font-family: 'JetBrains Mono';
+    font-style: italic;
+    font-weight: 100 800;
+    font-display: swap;
+    src: url('/fonts/JetBrainsMono-italic-5210f7350c95.woff2') format('woff2');
+  }
 
   @font-face {
     font-family: NewComputerModernMath Book;

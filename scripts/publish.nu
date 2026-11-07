@@ -29,6 +29,12 @@ for $font in $fonts {
     $files_to_copy = ($files_to_copy | append { source: $font, target: $target_path })
 }
 
+for $family in ["inter", "jetbrainsmono"] {
+    let source = $"static/($family)-OFL.txt"
+    let target = $"blog-data/timsblog/assets/fonts/($family)-OFL.txt"
+    $files_to_copy = ($files_to_copy | append { source: $source, target: $target })
+}
+
 let article_assets = (ls articles/*.jpg | get name)
 for $asset in $article_assets {
     let target_path = $"blog-data/timsblog/assets/articles/($asset | path basename)"
@@ -46,6 +52,9 @@ for $asset in $about_assets {
     let target_path = $"blog-data/timsblog/assets/about/($asset | path basename)"
     $files_to_copy = ($files_to_copy | append { source: $asset, target: $target_path })
 }
+
+# Upload fonts before the template that refers to them.
+$files_to_copy = ($files_to_copy | sort-by { |file| $file.target == "blog-data/timsblog/styles.tar.gz" })
 
 for $file in $files_to_copy {
     if (not ($file.source | path exists)) {
@@ -68,7 +77,11 @@ for $file in $files_to_copy {
         }
     }
 
-    mc cp $file.source $file.target
+    if (($file.source | path basename) =~ '^(Inter|JetBrainsMono)-.*\.woff2$') {
+        mc cp --attr "Cache-Control=public,max-age=31536000,immutable;Content-Type=font/woff2" $file.source $file.target
+    } else {
+        mc cp $file.source $file.target
+    }
 
     $cache = ($cache | where target != $file.target)
     $cache = ($cache | append { target: $file.target, hash: $current_hash })
