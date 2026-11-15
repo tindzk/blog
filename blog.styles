@@ -696,6 +696,14 @@ component Button: BorderedLink {
   <a href={url}>all</a>
 }
 
+component FeedLink {
+  style {
+    display: inline-flex;
+  }
+
+  <a href={url} title={title} aria-label={title}><RssIcon size={size} /></a>
+}
+
 component Greeting {
   style {
     margin-top: 6px;
@@ -758,7 +766,7 @@ component RssIcon {
      color: var(--rss-icon);
   }
 
-    <svg width="20px" height="20px" viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <svg width={size} height={size} viewBox="0 0 10 10" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
         <g stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
             <g transform="translate(-65.000000, -3644.000000)" fill="currentColor">
                 <g transform="translate(56.000000, 160.000000)">
@@ -800,9 +808,7 @@ component Home {
     <Greeting>
         Hi, I'm Tim.
 
-        <a title="Atom feed" href="/feed">
-          <RssIcon />
-        </a>
+        <FeedLink url="/feed/all" title="Atom feed for articles and posts" size="20" />
     </Greeting>
 
     <Bio>
@@ -811,11 +817,15 @@ component Home {
 
     <AllSocialLinks />
 
-    <H2>Latest articles <Button url="/articles" /></H2>
-    <ArticleList allArticles={articles} />
+    {if !is_empty(articles)}
+      <H2>Latest articles <Button url="/articles" /> <FeedLink url="/feed/articles" title="Atom feed for articles" size="16" /></H2>
+      <ArticleList allArticles={articles} />
+    {end}
 
-    <H2>Latest updates <Button url="/posts" /></H2>
-    <HomeUpdateList allUpdates={updates} />
+    {if !is_empty(updates)}
+      <H2>Latest updates <Button url="/posts" /> <FeedLink url="/feed/posts" title="Atom feed for posts" size="16" /></H2>
+      <HomeUpdateList allUpdates={updates} />
+    {end}
   </Page>
 }
 
